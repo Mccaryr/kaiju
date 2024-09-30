@@ -1,0 +1,14 @@
+.accent-gradient {
+  background: linear-gradient(90deg, #9400D3, #00FF00);
+  color:#ffff;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+.accent-gradient:hover {
+  background: linear-gradient(90deg, #00FF00, #9400D3); /* Reverse gradient on hover */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
