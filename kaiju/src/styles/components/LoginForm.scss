@@ -1,0 +1,133 @@
+@import '../shared/_variables.scss';
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  margin-top: 4rem;
+
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    background-color: #213547;
+    color: white;
+    padding: 2rem;
+    border-radius: 0.2rem;
+    gap: 1rem;
+    width: 40vw;
+    justify-content: center;
+    align-items: center;
+    max-width: 400px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    .input-field {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: 2px solid white;
+      border-radius: 0.25rem;
+      background-color: #213547;
+      color: white;
+      position: relative;
+      transition: border-color 0.3s ease, color 0.3s ease;
+
+      &:focus {
+        outline: none;
+        border-image: linear-gradient(45deg, #00FF00, #5810ed) 1;
+        animation: animateBorder 2s linear infinite;
+      }
+    }
+
+    .error-msg {
+      color: red;
+      font-size: 0.875rem;
+    }
+
+    .submit-btn {
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: 2px solid white;
+      border-radius: 0.25rem;
+      background-color: #213547;
+      color: white;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s ease, color 0.3s ease;
+
+      &:hover {
+        border-image: linear-gradient(45deg, #00FF00, #5810ed) 1;
+        animation: animateBorder 2s linear infinite;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  .link-btn {
+    text-decoration: underline;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 0.875rem;
+
+    &:hover {
+      text-decoration: none;
+      color: $secondary-accent-color;
+    }
+  }
+}
+
+
+@keyframes animateBorder {
+  0% {
+    border-image-slice: 1;
+    border-image: linear-gradient(45deg, #00FF00, #5810ed) 1;
+  }
+  10% {
+    border-image: linear-gradient(72deg, #00FF00, #5810ed) 1;
+  }
+  20% {
+    border-image: linear-gradient(108deg, #00FF00, #5810ed) 1;
+  }
+  30% {
+    border-image: linear-gradient(144deg, #00FF00, #5810ed) 1;
+  }
+  40% {
+    border-image: linear-gradient(180deg, #00FF00, #5810ed) 1;
+  }
+  50% {
+    border-image: linear-gradient(216deg, #00FF00, #5810ed) 1;
+  }
+  60% {
+    border-image: linear-gradient(252deg, #00FF00, #5810ed) 1;
+  }
+  70% {
+    border-image: linear-gradient(288deg, #00FF00, #5810ed) 1;
+  }
+  80% {
+    border-image: linear-gradient(324deg, #00FF00, #5810ed) 1;
+  }
+  90% {
+    border-image: linear-gradient(360deg, #00FF00, #5810ed) 1;
+  }
+  100% {
+    border-image: linear-gradient(405deg, #00FF00, #5810ed) 1; 
+  }
+}
+
+
