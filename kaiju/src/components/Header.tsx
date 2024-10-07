@@ -1,18 +1,14 @@
 import godzillaHeader from '../assets/godzillaHeader.jpeg'
-import kongHeader from '../assets/kongHeader.jpg'
 import '../styles/layout/Header.scss'
 
 const Header = () => {
     return (
-        <header className="header">
-            <div className="header-left">
+        <header className="header z-20">
+            <div className="header-left md:text-2xl sm:text-sm">
                 <h3>Kaiju Project Manager</h3><br/>
-                <h4>Unleash the Beast...Of Efficiency</h4>
+                <h3 className='hidden sm:block'>Unleash the Beast...Of Efficiency</h3>
             </div>
-            <div className="header-right">
-                <img src={kongHeader} alt={"Kong with Gauntlet"}/>
-            </div>
-            <div className="header-right">
+            <div className="header-right object-fill md:flex-1 sm:flex-2">
                 <img src={godzillaHeader} alt={"Godzilla roaring"}/>
             </div>
         </header>

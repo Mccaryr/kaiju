@@ -24,8 +24,8 @@ const LoginForm = () => {
 
 
     return (
-        <div className="login-container">
-            <div className="login-form">
+        <div className="login-container relative z-10 py-10">
+            <div className="login-form sm:w-1/2">
                 <h3>Sign In!</h3>
                 <Formik
                     initialValues={initialValues}
@@ -47,8 +47,10 @@ const LoginForm = () => {
                         </Form>
                     )}
                 </Formik>
-                <button className='link-btn'>Forgot Email?</button>
-                <button className='link-btn'>Forgot Password?</button>
+                <div className="flex justify-between w-full">
+                    <button className='link-btn'>Forgot Email?</button>
+                    <button className='link-btn'>Forgot Password?</button>
+                </div>
             </div>
         </div>
     )
