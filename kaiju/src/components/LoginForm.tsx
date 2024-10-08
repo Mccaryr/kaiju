@@ -1,6 +1,7 @@
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from 'yup';
 import '../styles/components/LoginForm.scss'
+import {useAuth} from "./AuthProvider.tsx";
 
 type LoginFormValues = {
     email: string;
@@ -14,10 +15,13 @@ const validationSchema = Yup.object ({
 
 const LoginForm = () => {
     const initialValues: LoginFormValues = { email: '', password: '' };
+    const { setLoggedIn } = useAuth();
 
+    // @ts-ignore
     const handleSubmit = (values: LoginFormValues, { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void}) => {
         setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
+            setLoggedIn(true)
+            //alert(JSON.stringify(values, null, 2));
             setSubmitting(false);
         }, 400);
     }
