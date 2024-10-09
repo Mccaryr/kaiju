@@ -1,26 +1,87 @@
+import Task from "./Task";
 import {TaskType} from "../types/task.ts";
-import Task from "./Task.tsx";
-import '../styles/pages/TaskList.scss'
+import '../styles/pages/TaskList.scss';
+// @ts-ignore
+import { DragDropContext, Droppable, Draggable, DroppableProvided, DraggableProvided } from 'react-beautiful-dnd';
+import { useState } from "react";
 
+type TaskBucket = {
+    [key: string]: TaskType[];
+}
 
-const taskDesignations = ["TODO", "In Progress", "Implemented", "Completed"]
-const mockTaskList: TaskType[] = [
-    {id: 1, title: "UI Work", type: "Story", description: "Create more buttons!", assignee:"Rob McCary", points: 7, status: "IN PROGRESS"},
-    {id: 2, title: "Create Endpoint", type: "Bug", description: "Make Auth endpoint", assignee:"Liam Clarke", points: 3, status: "IN PROGRESS"}
-]
+const initialTasks: TaskBucket = {
+    TODO: [],
+    "In Progress": [
+        { id: "1", title: "UI Work", type: "Story", description: "Create more buttons!", assignee: "Rob McCary", points: 7, status: "In Progress" },
+        { id: "2", title: "Create Endpoint", type: "Bug", description: "Make Auth endpoint", assignee: "Liam Clarke", points: 3, status: "In Progress" }
+    ],
+    Implemented: [],
+    Completed: []
+};
 
 const TaskList = () => {
+    const [tasks, setTasks] = useState(initialTasks);
+
+    const onDragEnd = (result: any) => {
+        const { source, destination } = result;
+
+        // If dropped outside any droppable area
+        if (!destination) return;
+
+        const sourceBucket = source.droppableId;
+        const destBucket = destination.droppableId;
+
+        // Clone the source items to modify
+        const sourceItems = Array.from(tasks[sourceBucket]);
+        const [movedTask] = sourceItems.splice(source.index, 1);
+
+        // Clone the destination items and insert the moved task
+        const destItems = Array.from(tasks[destBucket]);
+        destItems.splice(destination.index, 0, movedTask);
+
+        // Update the tasks state
+        setTasks({
+            ...tasks,
+            [sourceBucket]: sourceItems,
+            [destBucket]: destItems,
+        });
+    };
+
     return (
-        <div className="flex p-3 h-[85vh] justify-around">
-            {taskDesignations.map((designation) => (
-                <div key={designation} className="task-list-container flex flex-col h-full items-center gap-2 border-2 w-[22vw]">
-                    <h5 className='text-left w-full p-5'>{designation.toUpperCase()}</h5>
-                    {mockTaskList.map((task) => (
-                    <Task key={task.id} task={task} />
-                    ))}
-                </div>
-            ))}
-        </div>
-    )
-}
-export default TaskList
+        <DragDropContext onDragEnd={onDragEnd}>
+            <div className="flex p-3 h-[85vh] justify-around">
+                {Object.keys(tasks).map((designation) => (
+                    <Droppable droppableId={designation} key={designation}>
+                        {(provided: DroppableProvided) => (
+                            <div
+                                {...provided.droppableProps}
+                                ref={provided.innerRef}
+                                className="task-list-container flex flex-col h-full items-center gap-2 border-2 w-[22vw]"
+                            >
+                                <h5 className='text-left w-full p-5'>{designation.toUpperCase()}</h5>
+                                {tasks[designation].map((task, index) => (
+                                    <Draggable key={task.id} draggableId={task.id.toString()} index={index}>
+                                        {(provided: DraggableProvided) => (
+                                            <div
+                                                ref={provided.innerRef}
+                                                {...provided.draggableProps}
+                                                {...provided.dragHandleProps}
+                                                className="w-[100%]"
+                                                onClick={() => console.log(typeof(task.id))}
+                                            >
+                                                <Task task={task} />
+                                            </div>
+                                        )}
+                                    </Draggable>
+                                ))}
+                                {provided.placeholder}
+                            </div>
+                        )}
+                    </Droppable>
+                ))}
+            </div>
+        </DragDropContext>
+    );
+};
+
+export default TaskList;
