@@ -1,5 +1,5 @@
 import Landing from "./pages/Landing.tsx";
-import JobBoard from "./pages/JobBoard.tsx";
+import TaskBoard from "./pages/TaskBoard.tsx";
 import {useAuth} from "./components/AuthProvider.tsx";
 
 
@@ -7,7 +7,7 @@ function App() {
  const {loggedIn } = useAuth();
   return (
     <div>
-        {!loggedIn ? <Landing /> : <JobBoard />}
+        {!loggedIn ? <Landing /> : <TaskBoard />}
     </div>
   )
 }

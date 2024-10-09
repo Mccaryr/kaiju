@@ -1,0 +1,18 @@
+@import '../shared/_variables';
+
+.btn {
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 2px solid white;
+  border-radius: 0.25rem;
+  background-color: $primary-color;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s ease, color 0.3s ease;
+
+  &:hover {
+    border-image: linear-gradient(45deg, #00FF00, #5810ed) 1;
+    animation: animateBorder 2s linear infinite;
+  }
+}

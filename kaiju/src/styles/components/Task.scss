@@ -1,0 +1,11 @@
+@import '../shared/_variables';
+
+.task-container {
+  background-color: $primary-color;
+  display: flex;
+  cursor:pointer;
+
+  &:hover {
+    scale:110%;
+  }
+}

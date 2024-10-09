@@ -1,5 +1,6 @@
 import {TaskType} from "../types/task.ts";
 import React from "react";
+import '../styles/components/Task.scss'
 
 type TaskProps = {
     task: TaskType;
@@ -7,14 +8,16 @@ type TaskProps = {
 
 const Task: React.FC<TaskProps> = ({task}) => {
     return (
-        <div>
-            <div>
+        <div className='task-container border-2 w-[95%] rounded-lg shadow-lg flex-col'>
+            <div className='font-bold text-gray-900 dark:text-gray-400 p-3'>
                 <h3>{task.title}</h3>
-                <p>{task.assignee}</p>
             </div>
-            <div>
-                <p>{task.type}</p>
-                <p>{task.points}</p>
+            <div className='flex justify-between'>
+                <p className='p-3'>{task.type}</p>
+                <div className='flex p-3 gap-2'>
+                    <p>{task.points}</p>
+                    <p>{task.assignee}</p>
+                </div>
             </div>
         </div>
     )

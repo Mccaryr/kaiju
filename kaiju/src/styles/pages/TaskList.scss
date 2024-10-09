@@ -1,0 +1,12 @@
+@import '../shared/_mixins';
+@import '../shared/_variables';
+
+.task-list-container {
+  //border-image: linear-gradient(45deg, #00FF00, #5810ed) 1;
+  border-color: $accent-color;
+  border-radius: 1rem;
+
+  h5 {
+    @include display-font();
+  }
+}
