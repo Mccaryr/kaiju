@@ -6,6 +6,10 @@
 input {
   width: 300px;
   padding-right: 40px;
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .search-icon {

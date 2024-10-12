@@ -1,6 +1,6 @@
 import Task from "./Task";
 import {TaskType} from "../types/task.ts";
-import '../styles/pages/TaskList.scss';
+import '../styles/components/TaskList.scss';
 // @ts-ignore
 import { DragDropContext, Droppable, Draggable, DroppableProvided, DraggableProvided } from 'react-beautiful-dnd';
 import { useState } from "react";

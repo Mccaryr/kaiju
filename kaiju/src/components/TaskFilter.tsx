@@ -2,7 +2,7 @@ import SearchBar from "./SearchBar.tsx";
 
 const TaskFilter = () => {
     return (
-        <div className='mb-2 px-10'>
+        <div className='mb-2 p-8'>
             <SearchBar />
         </div>
     )

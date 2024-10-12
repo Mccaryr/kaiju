@@ -1,6 +1,5 @@
 import React from 'react'
 import '../styles/components/SearchBar.scss'
-// import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const SearchBar = () => {
     const [searchTerm, setSearchTerm] = React.useState('')
