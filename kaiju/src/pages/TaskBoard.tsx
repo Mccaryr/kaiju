@@ -7,8 +7,7 @@ const TaskBoard = () => {
     return (
         <div className='p-4'>
             <div className="flex flex-row justify-between w-full px-10">
-                <h5>Projects/Kaiju</h5>
-                <p>Time Remaining</p>
+                <h5>Projects / Kaiju</h5>
                 <Button text={"Complete Sprint"} action={() => alert("Sprint Completed")}/>
             </div>
             <TaskFilter />

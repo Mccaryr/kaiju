@@ -10,13 +10,14 @@ type TaskBucket = {
 }
 
 const initialTasks: TaskBucket = {
-    TODO: [],
-    "In Progress": [
-        { id: "1", title: "UI Work", type: "Story", description: "Create more buttons!", assignee: "Rob McCary", points: 7, status: "In Progress" },
-        { id: "2", title: "Create Endpoint", type: "Bug", description: "Make Auth endpoint", assignee: "Liam Clarke", points: 3, status: "In Progress" }
+    "TODO": [],
+    "IN PROGRESS": [
+        { id: "1", title: "UI Work", type: "Story", description: "Create more buttons!", assignee: "Rob McCary", points: 7, status: "IN PROGRESS" }
     ],
-    Implemented: [],
-    Completed: []
+    "IMPLEMENTED": [
+        { id: "2", title: "Create Endpoint", type: "Bug", description: "Make Auth endpoint", assignee: "Liam Clarke", points: 3, status: "IMPLEMENTED" }
+    ],
+    "COMPLETED": []
 };
 
 const TaskList = () => {
@@ -40,11 +41,13 @@ const TaskList = () => {
         destItems.splice(destination.index, 0, movedTask);
 
         // Update the tasks state
-        setTasks({
-            ...tasks,
-            [sourceBucket]: sourceItems,
-            [destBucket]: destItems,
-        });
+        if(tasks[sourceBucket] !== tasks[destBucket]) {
+            setTasks({
+                ...tasks,
+                [sourceBucket]: sourceItems,
+                [destBucket]: destItems,
+            });
+        }
     };
 
     return (
@@ -59,6 +62,7 @@ const TaskList = () => {
                                 className="task-list-container flex flex-col h-full items-center gap-2 border-2 w-[22vw]"
                             >
                                 <h5 className='text-left w-full p-5'>{designation.toUpperCase()}</h5>
+                                <div className='tasks-container w-full flex flex-col items-center gap-2 pt-4'>
                                 {tasks[designation].map((task, index) => (
                                     <Draggable key={task.id} draggableId={task.id.toString()} index={index}>
                                         {(provided: DraggableProvided) => (
@@ -75,6 +79,7 @@ const TaskList = () => {
                                     </Draggable>
                                 ))}
                                 {provided.placeholder}
+                                </div>
                             </div>
                         )}
                     </Droppable>
