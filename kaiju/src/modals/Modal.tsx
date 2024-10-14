@@ -3,6 +3,7 @@ import TaskModal from "./TaskModal.tsx";
 import {RootState} from '../app/store.ts';
 import {closeModal} from "../features/modalSlice.ts";
 import {useDispatch} from "react-redux";
+import '../styles/components/Modal.scss'
 
 const Modal = () => {
     const {isVisible, modalType, modalProps} = useSelector((state: RootState) => state.modal)
@@ -11,8 +12,7 @@ const Modal = () => {
     if (!isVisible) { return null}
 
     return (
-        <div className='h-[60vh] w-3/4 bg-cyan-900 z-20'>
-            {modalType == "CREATE_TASK" && <TaskModal {...modalProps} />}
+        <div className='h-[90vh] w-3/4 z-20 rounded-2xl modal'>
             <div className='top-0 right-0 relative'>
                 <button
                     onClick={() => dispatch(closeModal())}
@@ -20,6 +20,7 @@ const Modal = () => {
                 >X
                 </button>
             </div>
+            {modalType == "CREATE_TASK" && <TaskModal {...modalProps} />}
         </div>
     )
 }

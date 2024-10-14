@@ -33,7 +33,8 @@ const TaskBoard = () => {
             <TaskFilter/>
             <TaskList />
             {isVisible && (
-                <div className="w-full flex items-center justify-center z-20 top-0 left-0 right-0 bottom-0 fixed bg-black bg-opacity-70">
+                <div className='w-full h-full flex items-center justify-center z-10 fixed top-0 left-0 right-0 bottom-0'>
+                    <div className="absolute w-full h-full" style={{ backgroundColor: 'rgba(0, 0, 0, 0.75)'}}/>
                     <Modal />
                 </div>
             )}
