@@ -26,6 +26,7 @@ const TaskBoard = () => {
                             <a href="#" onClick={() => dispatch(openModal({modalType: "CREATE_TASK"}))}>Create Task</a>
                             <a href="#">Sprint Analytics</a>
                             <a href="#">Create Task Template</a>
+                            <a href="#">Logout</a>
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,7 @@
 import {TaskType} from "../types/task.ts";
 import React from "react";
 import '../styles/components/Task.scss'
+import {openModal} from "../features/modalSlice.ts";
 
 type TaskProps = {
     task: TaskType;
@@ -9,7 +10,7 @@ type TaskProps = {
 const Task: React.FC<TaskProps> = ({task}) => {
     return (
         <div className='task-container border-2 w-[95%] rounded-lg shadow-lg flex flex-col items-center'
-             //onClick={() => openModal('TaskModal')}
+             onClick={() => openModal({modalType: 'VIEW_TASK'})}
         >
             <div className='font-bold text-gray-900 dark:text-gray-400 p-3'>
                 <h3>{task.title}</h3>

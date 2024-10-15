@@ -1,13 +1,14 @@
 import Select from "react-select";
-import {useState} from "react";
-import {SingleValue} from "react-select";
 import {Option} from "../types/option.ts";
 import Button from "../components/Button.tsx";
+import {ErrorMessage, Field, Form, Formik} from "formik";
+import * as Yup from "yup";
 
-const TaskModal = () => {
-    const [selectedTypeOption, setSelectedTypeOption] = useState<SingleValue<Option>>(null);
-    const [selectedAssigneeOption, setSelectedAssigneeOption] = useState<SingleValue<Option>>(null);
+interface TaskModalProps {
+    modalType?: string
+}
 
+const TaskModal = ({modalType}: TaskModalProps) => {
 
     const typeOptions: Option[] = [
         {label: "Story", value: "Story"},
@@ -29,49 +30,87 @@ const TaskModal = () => {
         })
     }
 
+    const validationSchema = Yup.object({
+        title: Yup.string().required("Required"),
+        description: Yup.string().required("Required"),
+        type: Yup.object().required("Required"),
+        assignee: Yup.object().required("Required"),
+        points: Yup.number().required("Required"),
+    })
+
 
     return (
-        <div className='flex flex-col items-center gap-4'>
-            <div className='flex flex-col items-center gap-2'>
-                <h3>Create Task</h3>
-                <input type="text" placeholder="Task Title" className='h-[5vh] rounded-lg'/>
-            </div>
-            <div className='flex flex-col items-center gap-2 w-full h-[50vh]'>
-                <label>Task Description</label><textarea className='w-3/4 h-[50vh] rounded-lg' placeholder="Task Description" />
-            </div>
-            <div className='flex items-center w-full justify-evenly px-2 py-10'>
-                <div className='w-1/3'>
-                    <label>Type</label>
-                    <Select
-                        styles={customStyles}
-                        value={selectedTypeOption}
-                        onChange={(option) => setSelectedTypeOption(option)}
-                        options={typeOptions}
-                        placeholder="Select Task Type"
-                        getOptionLabel={(option) => option.label}
-                        getOptionValue={(option) => option.value}
-                    />
-                </div>
-                <div className='w-1/3'>
-                    <label>Assigned To</label>
-                    <Select
-                        styles={customStyles}
-                        value={selectedAssigneeOption}
-                        onChange={(option) => setSelectedAssigneeOption(option)}
-                        options={assigneeOptions}
-                        placeholder="Assigned To"
-                        getOptionLabel={(option) => option.label}
-                        getOptionValue={(option) => option.value}
-                    />
-                </div>
-                <div className='flex flex-col items-center gap-2 '>
-                <label>Points</label><input style={{width:'50px'}} type="number" defaultValue={0} />
-                </div>
-            </div>
-            <div className='flex justify-end px-2'>
-                <Button text="Save Task"/>
-            </div>
-        </div>
+        <Formik
+            initialValues={{
+                title: "",
+                description: "",
+                type: null,
+                assignee: null,
+                points: 1
+            }}
+            onSubmit={() => console.log("Submitting")}
+            validationSchema={validationSchema}
+            >
+            {({values, setFieldValue, handleSubmit}) => (
+                <Form className='flex flex-col items-center gap-4' onSubmit={handleSubmit}>
+                    <div className='flex flex-col items-center gap-2'>
+                        <h3>Create Task</h3>
+                        <Field
+                            type="text"
+                            name="title"
+                            placeholder="Task Title"
+                            className='h-[5vh] rounded-lg'
+                        />
+                        <ErrorMessage name="title" component="div" className="text-red-500" />
+                    </div>
+                    <div className='flex flex-col items-center gap-2 w-full h-[50vh]'>
+                        <label>Task Description</label>
+                        <textarea
+                            className='w-3/4 h-[50vh] rounded-lg'
+                            placeholder="Task Description"
+                        />
+                        <ErrorMessage name="description" component="div" className="text-red-500" />
+                    </div>
+                    <div className='flex items-center w-full justify-evenly px-2 py-10'>
+                        <div className='w-1/3'>
+                            <label>Type</label>
+                            <Select
+                                styles={customStyles}
+                                value={values.type}
+                                onChange={(option) => setFieldValue("type", option)}
+                                options={typeOptions}
+                                placeholder="Select Task Type"
+                            />
+                            <ErrorMessage name="type" component="div" className="text-red-500" />
+                        </div>
+                        <div className='w-1/3'>
+                            <label>Assigned To</label>
+                            <Select
+                                styles={customStyles}
+                                value={values.assignee}
+                                onChange={(option) => setFieldValue("assignee", option)}
+                                options={assigneeOptions}
+                                placeholder="Assigned To"
+                            />
+                            <ErrorMessage name="assignee" component="div" className="text-red-500" />
+                        </div>
+                        <div className='flex flex-col items-center gap-2 '>
+                            <label>Points</label>
+                            <Field
+                                name="points"
+                                type="number"
+                                min={1}
+                                defaultValue={1}
+                            />
+                            <ErrorMessage name="points" component="div" className="text-red-500" />
+                        </div>
+                    </div>
+                    <div className='flex justify-end px-2'>
+                        <Button text={modalType === "CREATE_TASK" ? "Save Task" : "Update Task"}/>
+                    </div>
+                </Form>
+            )}
+        </Formik>
     )
 }
 export default TaskModal

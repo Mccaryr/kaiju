@@ -20,7 +20,7 @@ const Modal = () => {
                 >X
                 </button>
             </div>
-            {modalType == "CREATE_TASK" && <TaskModal {...modalProps} />}
+            <TaskModal {...modalProps} modalType={modalType} />
         </div>
     )
 }

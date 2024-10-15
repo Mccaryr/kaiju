@@ -4,6 +4,8 @@ import '../styles/components/TaskList.scss';
 // @ts-ignore
 import { DragDropContext, Droppable, Draggable, DroppableProvided, DraggableProvided } from 'react-beautiful-dnd';
 import { useState } from "react";
+import {openModal} from "../features/modalSlice.ts";
+import {useDispatch} from "react-redux";
 
 type TaskBucket = {
     [key: string]: TaskType[];
@@ -22,6 +24,7 @@ const initialTasks: TaskBucket = {
 
 const TaskList = () => {
     const [tasks, setTasks] = useState(initialTasks);
+    const dispatch = useDispatch();
 
     const onDragEnd = (result: any) => {
         const { source, destination } = result;
@@ -71,7 +74,7 @@ const TaskList = () => {
                                                 {...provided.draggableProps}
                                                 {...provided.dragHandleProps}
                                                 className="w-[100%]"
-                                                onClick={() => console.log(typeof(task.id))}
+                                                onClick={() => dispatch(openModal({modalType: "UPDATE_TASK"}))}
                                             >
                                                 <Task task={task} />
                                             </div>
