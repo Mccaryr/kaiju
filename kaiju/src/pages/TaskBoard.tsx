@@ -7,10 +7,12 @@ import Modal from "../modals/Modal.tsx";
 import {useDispatch, useSelector} from "react-redux";
 import {openModal} from "../features/modalSlice.ts";
 import {RootState} from "../app/store.ts";
+import {useAuth} from "../components/AuthProvider.tsx";
 
 const TaskBoard = () => {
     const dispatch = useDispatch();
     const {isVisible} = useSelector((state: RootState) => state.modal);
+    const {logout} = useAuth()
 
     return (
         <div className='p-4'>
@@ -26,7 +28,7 @@ const TaskBoard = () => {
                             <a href="#" onClick={() => dispatch(openModal({modalType: "CREATE_TASK"}))}>Create Task</a>
                             <a href="#">Sprint Analytics</a>
                             <a href="#">Create Task Template</a>
-                            <a href="#">Logout</a>
+                            <a href="/" onClick={() => logout()}>Logout</a>
                         </div>
                     </div>
                 </div>

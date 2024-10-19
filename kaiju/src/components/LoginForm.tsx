@@ -15,13 +15,12 @@ const validationSchema = Yup.object ({
 
 const LoginForm = () => {
     const initialValues: LoginFormValues = { email: '', password: '' };
-    const { setLoggedIn } = useAuth();
+    const {login} = useAuth()
 
     // @ts-ignore
     const handleSubmit = (values: LoginFormValues, { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void}) => {
         setTimeout(() => {
-            setLoggedIn(true)
-            //alert(JSON.stringify(values, null, 2));
+            login(values)
             setSubmitting(false);
         }, 400);
     }
