@@ -5,11 +5,15 @@ import '../styles/components/TaskList.scss';
 import { DragDropContext, Droppable, Draggable, DroppableProvided, DraggableProvided } from 'react-beautiful-dnd';
 import {openModal} from "../features/modalSlice.ts";
 import {useDispatch} from "react-redux";
-import {useGetTasksQuery, useUpdateTaskMutation} from "../features/apiSlice.ts";
+import {useUpdateTaskMutation} from "../features/apiSlice.ts";
 import {useEffect, useState} from "react";
 
 type TaskBucket = {
     [key: string]: TaskType[];
+}
+
+type TasksDataProps = {
+    tasksData: TaskType[];
 }
 
 const initialTasks: TaskBucket = {
@@ -20,9 +24,8 @@ const initialTasks: TaskBucket = {
     "COMPLETED": []
 };
 
-const TaskList = () => {
+const TaskList: React.FC<TasksDataProps> = ({tasksData}) => {
     // @ts-ignore
-    const { data: tasksData, error, isLoading } = useGetTasksQuery()
     const [updateTask, { isSuccess, error: updateError }] = useUpdateTaskMutation();
     const [tasks, setTasks] = useState(initialTasks);
 
@@ -81,7 +84,7 @@ const TaskList = () => {
 
         // Update the tasks state
         if(tasks[sourceBucket] !== tasks[destBucket]) {
-            handleTaskUpdate(movedTask, Object.keys(destBucket)[0]).then((success) => {
+            handleTaskUpdate(movedTask, destBucket).then((success) => {
                 if(success) {
                     setTasks({
                         ...tasks,
@@ -95,7 +98,7 @@ const TaskList = () => {
         }
     };
 
-    if (isLoading) {return(<h1>Loading!</h1>)}
+
     return (
         <DragDropContext onDragEnd={onDragEnd}>
             <div className="flex p-3 h-[85vh] justify-around">
@@ -105,7 +108,7 @@ const TaskList = () => {
                             <div
                                 {...provided.droppableProps}
                                 ref={provided.innerRef}
-                                className="task-list-container flex flex-col h-full items-center gap-2 border-2 w-[22vw]"
+                                className="task-list-container flex flex-col h-full items-center gap-2 border-2 w-[18vw]"
                             >
                                 <h5 className='text-left w-full p-5'>{designation.toUpperCase()}</h5>
                                 <div className='tasks-container w-full flex flex-col items-center gap-2 pt-4'>
@@ -117,7 +120,7 @@ const TaskList = () => {
                                                 {...provided.draggableProps}
                                                 {...provided.dragHandleProps}
                                                 className="w-[100%]"
-                                                onClick={() => dispatch(openModal({modalType: "UPDATE_TASK"}))}
+                                                onClick={() => dispatch(openModal({modalType: "UPDATE_TASK", modalProps: task}))}
                                             >
                                                 <Task task={task} />
                                             </div>

@@ -1,11 +1,11 @@
 import {useSelector} from "react-redux";
 import TaskModal from "./TaskModal.tsx";
 import {RootState} from '../app/store.ts';
-import {closeModal} from "../features/modalSlice.ts";
+import {closeModal, openModal} from "../features/modalSlice.ts";
 import {useDispatch} from "react-redux";
 import '../styles/components/Modal.scss'
 
-const Modal = () => {
+const Modal = ({ refetch }: { refetch: () => void }) => {
     const {isVisible, modalType, modalProps} = useSelector((state: RootState) => state.modal)
     const dispatch = useDispatch();
 
@@ -20,7 +20,7 @@ const Modal = () => {
                 >X
                 </button>
             </div>
-            <TaskModal {...modalProps} modalType={modalType} />
+            <TaskModal modalType={modalType} modalProps={modalProps} refetch={refetch}/>
         </div>
     )
 }

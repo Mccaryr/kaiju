@@ -24,9 +24,22 @@ export const apiSlice = createApi({
                 method: 'PATCH',
                 body: task
             })
+        }),
+        createTask: builder.mutation({
+            query: (task) => ({
+                url: `task`,
+                method: 'POST',
+                body: task
+            })
+        }),
+        deleteTask: builder.mutation({
+            query: (taskId) => ({
+                url: `task/${taskId}`,
+                method: 'DELETE'
+            })
         })
     }),
 });
 
 
-export const { useGetTasksQuery, useUpdateTaskMutation } = apiSlice;
+export const { useGetTasksQuery, useUpdateTaskMutation, useCreateTaskMutation, useDeleteTaskMutation } = apiSlice;

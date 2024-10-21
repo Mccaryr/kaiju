@@ -8,11 +8,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {openModal} from "../features/modalSlice.ts";
 import {RootState} from "../app/store.ts";
 import {useAuth} from "../components/AuthProvider.tsx";
+import {useGetTasksQuery} from "../features/apiSlice.ts";
 
 const TaskBoard = () => {
     const dispatch = useDispatch();
     const {isVisible} = useSelector((state: RootState) => state.modal);
     const {logout} = useAuth()
+    // @ts-ignore
+    const { data: tasksData, error, isLoading, refetch} = useGetTasksQuery()
 
     return (
         <div className='p-4'>
@@ -34,11 +37,11 @@ const TaskBoard = () => {
                 </div>
             </div>
             <TaskFilter/>
-            <TaskList />
+            <TaskList tasksData={tasksData}/>
             {isVisible && (
                 <div className='w-full h-full flex items-center justify-center z-10 fixed top-0 left-0 right-0 bottom-0'>
                     <div className="absolute w-full h-full" style={{ backgroundColor: 'rgba(0, 0, 0, 0.75)'}}/>
-                    <Modal />
+                    <Modal refetch={refetch}/>
                 </div>
             )}
         </div>

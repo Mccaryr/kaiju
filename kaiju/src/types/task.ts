@@ -6,4 +6,5 @@ export type TaskType = {
     assignee?: string;
     points?: number;
     status: string;
+    forEach(param: (task: TaskType) => void): void;
 };
