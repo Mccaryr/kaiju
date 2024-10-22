@@ -37,8 +37,8 @@ export const apiSlice = createApi({
                 url: `task/${taskId}`,
                 method: 'DELETE'
             })
-        })
-    }),
+        }),
+    })
 });
 
 

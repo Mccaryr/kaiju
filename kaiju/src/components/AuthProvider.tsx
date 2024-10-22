@@ -42,7 +42,7 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
             localStorage.setItem('token', response.data.jwt);
             setLoggedIn(true);
         } else {
-            console.log("You done messed up")
+            setLoggedIn(false);
         }
 
     }
