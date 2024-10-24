@@ -7,6 +7,8 @@ import Select from "react-select";
 import {closeModal} from "../features/modalSlice.ts";
 import {useDispatch} from "react-redux";
 import TextEditor from "../components/TextEditor.tsx";
+import '../styles/components/Button.scss'
+import '../styles/components/Modal.scss'
 
 interface TaskModalProps {
     modalType?: string,
@@ -63,7 +65,7 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
         option: (provided: any, state: any) => ({
             ...provided,
             color: state.isFocused ? 'black' : 'white',
-            backgroundColor: state.isFocused ? 'white' : 'black'
+            backgroundColor: state.isFocused ? 'white' : 'black',
         })
     }
 
@@ -162,7 +164,7 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
                                 value={values.type}
                                 onChange={(option) => setFieldValue("type", option)}
                                 options={typeOptions}
-                                placeholder="Select Task Type"
+                                placeholder="Task Type"
                             />
                             <ErrorMessage name="type" component="div" className="text-red-500"/>
                         </div>
@@ -173,7 +175,8 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
                                 value={values.status}
                                 onChange={(option) => setFieldValue("status", option)}
                                 options={statusOptions}
-                                placeholder="Select Status Type"
+                                placeholder="Status Type"
+                                menuPlacement={"top"}
                             />
                             <ErrorMessage name="type" component="div" className="text-red-500"/>
                         </div>
@@ -185,6 +188,7 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
                                 onChange={(option) => setFieldValue("assignee", option)}
                                 options={assigneeOptions}
                                 placeholder="Assigned To"
+                                menuPlacement={"top"}
                             />
                             <ErrorMessage name="assignee" component="div" className="text-red-500"/>
                         </div>
@@ -201,11 +205,11 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
                         </div>
                     </div>
                     <div className='flex px-2 gap-5'>
-                        <button type="submit" disabled={isSubmitting} className='submit-btn'>
+                        <button type="submit" disabled={isSubmitting} className='btn'>
                             {modalType === "CREATE_TASK" ? "Submit" : "Update"}
                         </button>
                         {modalType === "UPDATE_TASK" &&
-                            <button type="button" className='bg-red-700' onClick={() => handleDeleteTask()}>
+                            <button type="button" className='bg-red-700 hover:scale-125' onClick={() => handleDeleteTask()}>
                                 Delete
                             </button>
                         }

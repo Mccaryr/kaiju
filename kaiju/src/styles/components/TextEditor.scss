@@ -1,0 +1,19 @@
+@import '../shared/_variables';
+//Formatting options
+.ql-snow .ql-picker {
+  color:white !important;
+}
+
+.ql-snow .ql-stroke {
+  color:white !important;
+  stroke:white;
+}
+
+.ql-snow .ql-fill {
+  fill:white !important;
+}
+
+//Dropdown
+.ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
+  background-color:$primary-color !important;
+}

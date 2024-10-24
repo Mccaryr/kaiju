@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
+import '../styles/components/TextEditor.scss'
 
 interface TextEditorProps {
     value: string;
@@ -18,7 +19,7 @@ const TextEditor: React.FC<TextEditorProps> = ({ value, onChange }) => {
                 modules: {
                     toolbar: [
                         [{ 'header': [1, 2, false] }],
-                        ['bold', 'italic', 'underline'], // Add formatting buttons
+                        ['bold', 'italic', 'underline', 'strike'], // Add formatting buttons
                         [{ 'color': [] }], // The color dropdown
                         [{ 'list': 'ordered' }, { 'list': 'bullet' }],
                         ['link', 'image'], // Add links and images
@@ -42,7 +43,7 @@ const TextEditor: React.FC<TextEditorProps> = ({ value, onChange }) => {
     }, [value, onChange]);
 
     return (
-        <div className='w-[75vw]'>
+        <div className='text-editor w-[75vw]'>
             <div ref={editorRef} className='bg-white text-black h-[40vh]'></div>
         </div>
     );

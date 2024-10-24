@@ -14,5 +14,6 @@
   &:hover {
     border-image: linear-gradient(45deg, #00FF00, #5810ed) 1;
     animation: animateBorder 2s linear infinite;
+    scale: 125%;
   }
 }
