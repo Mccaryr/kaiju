@@ -33,7 +33,7 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
         //@ts-ignore
         let response = await axios({
             method: 'post',
-            url: 'http://localhost:8080/api/auth/authenticate',
+            url: 'https://kaiju-api.onrender.com/api/auth/authenticate',
             data: userData,
             withCredentials: false,
         });
