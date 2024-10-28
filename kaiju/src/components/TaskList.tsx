@@ -113,7 +113,7 @@ const TaskList: React.FC<TasksDataProps> = ({tasksData}) => {
                                 <h5 className='text-left w-full p-5'>{designation.toUpperCase()}</h5>
                                 <div className='tasks-container w-full flex flex-col items-center gap-2 pt-4'>
                                 {tasks[designation].map((task, index) => (
-                                    <Draggable key={task.id} draggableId={task.id.toString()} index={index}>
+                                    <Draggable key={task.id} draggableId={task.id ? task.id.toString() : null} index={index}>
                                         {(provided: DraggableProvided) => (
                                             <div
                                                 ref={provided.innerRef}

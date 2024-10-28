@@ -27,7 +27,7 @@ const useAuth = () => {
 // Create the Provider component
 const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [loggedIn, setLoggedIn] = useState<boolean>(false);
-    const [user, setUser] = useState<AuthContextType | null>(null);
+    const [, setUser] = useState<AuthContextType | null>(null);
 
     const login = async (userData: UserType) => {
         //@ts-ignore
