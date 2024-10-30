@@ -1,5 +1,7 @@
 import React, {createContext, useContext, useState} from "react";
 import axios from "axios";
+import CONFIG from "../config.ts";
+
 
 type UserType = {
     email: string;
@@ -12,6 +14,8 @@ type AuthContextType = {
     login: (userData: UserType) => void;
     logout: () => void;
 }
+
+const isLocal = window.location.hostname === "localhost";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -33,7 +37,7 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
         //@ts-ignore
         let response = await axios({
             method: 'post',
-            url: 'https://kaiju-api.onrender.com/api/auth/authenticate',
+            url: isLocal ? `${CONFIG.LOCAL_BACKEND_URL}/auth/authenticate` : `${CONFIG.PROD_BACKEND_URL}/auth/authenticate`,
             data: userData,
             withCredentials: false,
         });

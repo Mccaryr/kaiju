@@ -1,11 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import CONFIG from "../config.ts";
 
 export const apiSlice = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({
-        //baseUrl: 'http://localhost:8080/api',
-        baseUrl: 'https://kaiju-api.onrender.com/api',
-        //credentials: 'same-origin',
+        baseUrl: window.location.hostname ==='localhost' ? `${CONFIG.LOCAL_BACKEND_URL}` : `${CONFIG.PROD_BACKEND_URL}`,
         prepareHeaders: (headers) => {
             const token = localStorage.getItem('token');
             if(token){

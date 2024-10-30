@@ -2,6 +2,7 @@ import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from 'yup';
 import '../styles/components/LoginForm.scss'
 import {useAuth} from "./AuthProvider.tsx";
+import Button from "./Button.tsx";
 
 type LoginFormValues = {
     email: string;
@@ -42,10 +43,7 @@ const LoginForm = () => {
                                 <ErrorMessage name="email" component="div" className='error-msg'/>
                                 <Field type="password" name="password" placeholder="Password" className='input-field'/>
                                 <ErrorMessage name="password" component="div" className='error-msg'/>
-
-                            <button type="submit" disabled={isSubmitting} className='submit-btn'>
-                                Submit
-                            </button>
+                                <Button text={"Submit"} disabled={isSubmitting} type={"submit"}/>
                             </div>
                         </Form>
                     )}
