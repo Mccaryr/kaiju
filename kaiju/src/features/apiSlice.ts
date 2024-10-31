@@ -5,6 +5,7 @@ export const apiSlice = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({
         baseUrl: window.location.hostname ==='localhost' ? `${CONFIG.LOCAL_BACKEND_URL}` : `${CONFIG.PROD_BACKEND_URL}`,
+        credentials: 'same-origin',
         prepareHeaders: (headers) => {
             const token = localStorage.getItem('token');
             if(token){
@@ -16,7 +17,16 @@ export const apiSlice = createApi({
 
     endpoints: (builder) => ({
         getTasks: builder.query({
-            query: () => 'tasks',
+            query: ({searchTerm = '', taskType = ''}) => {
+                const params = new URLSearchParams();
+                if (searchTerm) params.append('search', searchTerm);
+                if (taskType) params.append('type', taskType);
+                if(!searchTerm.length && !taskType.length) {
+                    return 'tasks'
+                } else {
+                    return `tasks?${params.toString()}`;
+                }
+            },
         }),
         updateTask: builder.mutation({
             query: (task) => ({
@@ -42,4 +52,9 @@ export const apiSlice = createApi({
 });
 
 
-export const { useGetTasksQuery, useUpdateTaskMutation, useCreateTaskMutation, useDeleteTaskMutation } = apiSlice;
+export const {
+    useGetTasksQuery,
+    useUpdateTaskMutation,
+    useCreateTaskMutation,
+    useDeleteTaskMutation
+} = apiSlice;

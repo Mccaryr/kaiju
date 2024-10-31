@@ -19,7 +19,7 @@ const Task: React.FC<TaskProps> = ({task}) => {
                 <p className='p-3'>{task.type}</p>
                 <div className='flex p-3 gap-2'>
                     <p>{task.points}</p>
-                    <p>{task.assignee}</p>
+                    <p>{task.assignee.match(/^[^@]+/)[0]}</p>
                 </div>
             </div>
         </div>

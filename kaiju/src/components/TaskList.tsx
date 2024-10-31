@@ -51,8 +51,7 @@ const TaskList: React.FC<TasksDataProps> = ({tasksData}) => {
         let taskToUpdate = {...movedTask};
         taskToUpdate.status = destBucket;
         try {
-            let result = await updateTask(taskToUpdate)
-            console.log("result: ", result)
+            await updateTask(taskToUpdate)
             return true
         } catch(e) {
             console.log("Failed to update: ", e)
@@ -82,21 +81,23 @@ const TaskList: React.FC<TasksDataProps> = ({tasksData}) => {
         const destItems = Array.from(tasks[destBucket]);
         destItems.splice(destination.index, 0, movedTask);
 
-        // Update the tasks state
-        if(tasks[sourceBucket] !== tasks[destBucket]) {
-            handleTaskUpdate(movedTask, destBucket).then((success) => {
-                if(success) {
-                    setTasks({
-                        ...tasks,
-                        [sourceBucket]: sourceItems,
-                        [destBucket]: destItems,
-                    });
-                } else {
-                    console.log("Failed to Update")
-                }
-            })
-        }
+        // Optimistically updates state
+        const updatedTasks = {
+            ...tasks,
+            [sourceBucket]: sourceItems,
+            [destBucket]: destItems,
+        };
+        setTasks(updatedTasks);
+
+        // Revert if it fails
+        handleTaskUpdate(movedTask, destBucket).then((success) => {
+            if (!success) {
+                setTasks(tasks);
+                console.log("Failed to Update");
+            }
+        });
     };
+
 
 
     return (

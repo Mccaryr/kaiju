@@ -9,13 +9,21 @@ import {openModal} from "../features/modalSlice.ts";
 import {RootState} from "../app/store.ts";
 import {useAuth} from "../components/AuthProvider.tsx";
 import {useGetTasksQuery} from "../features/apiSlice.ts";
+import {useEffect} from "react";
 
 const TaskBoard = () => {
     const dispatch = useDispatch();
     const {isVisible} = useSelector((state: RootState) => state.modal);
     const {logout} = useAuth()
     // @ts-ignore
-    const { data: tasksData, error, isLoading, refetch} = useGetTasksQuery()
+    const { data: tasksData, error, isLoading, refetch} = useGetTasksQuery({})
+    const searchTerm = useSelector((state: RootState) => state.filter.searchTerm)
+    const type = useSelector((state: RootState) => state.filter.type)
+
+    useEffect(() => {
+     refetch()
+        console.log("Refetching")
+    }, [searchTerm, type])
 
     return (
         <div className='p-4'>
