@@ -4,6 +4,7 @@
 .task-list-container {
   border-color: $accent-color;
   border-radius: 1rem;
+  overflow-y: scroll;
 
   h5 {
     @include display-font();

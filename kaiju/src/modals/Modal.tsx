@@ -4,15 +4,16 @@ import {RootState} from '../app/store.ts';
 import {closeModal} from "../features/modalSlice.ts";
 import {useDispatch} from "react-redux";
 import '../styles/components/Modal.scss'
+import CreateAccount from "../components/CreateAccount.tsx";
 
-const Modal = ({ refetch }: { refetch: () => void }) => {
+const Modal = ({ refetch }: { refetch?: () => void }) => {
     const {isVisible, modalType, modalProps} = useSelector((state: RootState) => state.modal)
     const dispatch = useDispatch();
 
     if (!isVisible) { return null}
 
     return (
-        <div className='h-[90vh] w-[90vw] z-20 rounded-2xl modal'>
+        <div className='h-[50vh] w-[90vw] z-20 rounded-2xl modal'>
             <div className='top-0 right-0 relative'>
                 <button
                     onClick={() => dispatch(closeModal())}
@@ -20,7 +21,7 @@ const Modal = ({ refetch }: { refetch: () => void }) => {
                 >X
                 </button>
             </div>
-            <TaskModal modalType={modalType} modalProps={modalProps} refetch={refetch}/>
+                <TaskModal modalType={modalType} modalProps={modalProps} refetch={refetch}/>
         </div>
     )
 }

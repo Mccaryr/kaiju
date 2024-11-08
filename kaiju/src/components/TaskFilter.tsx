@@ -49,7 +49,7 @@ const TaskFilter = () => {
                 value={type}
                 onChange={(option) => {
                     setType(option)
-                    dispatch(setFilter({searchTerm: "", type: option.value}))
+                    dispatch(setFilter({taskType: option.value}))
                 }}
                 options={typeOptions}
                 placeholder="Task Type"

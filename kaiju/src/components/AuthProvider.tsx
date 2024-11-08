@@ -13,6 +13,7 @@ type AuthContextType = {
     setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
     login: (userData: UserType) => void;
     logout: () => void;
+    createAccount: (userData: UserType) => void;
 }
 
 const isLocal = window.location.hostname === "localhost";
@@ -57,10 +58,25 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
         setLoggedIn(false);
     }
 
+    const createAccount = async (userData: UserType) => {
+        let response = await axios({
+            method: 'post',
+            url: isLocal ? `${CONFIG.LOCAL_BACKEND_URL}/auth/signup` : `${CONFIG.PROD_BACKEND_URL}/auth/signup`,
+            data: {userName: userData.email, password: userData.password}
+        })
+
+        if(response.status === 200) {
+            localStorage.setItem('token', response.data.jwt);
+            setLoggedIn(true);
+        } else {
+            console.log("Account Creation failed")
+        }
+    }
+
 
     // @ts-ignore
     return (
-        <AuthContext.Provider value={{ loggedIn, setLoggedIn, login, logout }}>
+        <AuthContext.Provider value={{ loggedIn, setLoggedIn, login, logout, createAccount }}>
             {children}
         </AuthContext.Provider>
     );

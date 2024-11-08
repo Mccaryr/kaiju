@@ -16,14 +16,13 @@ const TaskBoard = () => {
     const {isVisible} = useSelector((state: RootState) => state.modal);
     const {logout} = useAuth()
     // @ts-ignore
-    const { data: tasksData, error, isLoading, refetch} = useGetTasksQuery({})
     const searchTerm = useSelector((state: RootState) => state.filter.searchTerm)
-    const type = useSelector((state: RootState) => state.filter.type)
+    const taskType = useSelector((state: RootState) => state.filter.taskType)
+    const { data: tasksData, error, isLoading, refetch} = useGetTasksQuery({searchTerm, taskType})
 
     useEffect(() => {
      refetch()
-        console.log("Refetching")
-    }, [searchTerm, type])
+    }, [searchTerm, taskType])
 
     return (
         <div className='p-4'>

@@ -2,16 +2,16 @@ import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
     searchTerm: "",
-    type: ""
+    taskType: ""
 }
 export const filterSlice = createSlice({
     name: 'filter',
     initialState,
     reducers: {
         setFilter: (state, action) => {
-            console.log(action.payload)
-            state.searchTerm = action.payload.searchTerm;
-            state.type = action.payload.type;
+            const {searchTerm, taskType} = action.payload
+            if(searchTerm) state.searchTerm = searchTerm;
+            if(taskType) state.taskType = taskType;
         }
     }
 })

@@ -14,8 +14,10 @@ const validationSchema = Yup.object ({
     password: Yup.string().required('Required'),
 })
 
-const LoginForm = () => {
-    const initialValues: LoginFormValues = { email: '', password: '' };
+
+
+const LoginForm = ({setCreatingAccount}: {setCreatingAccount: (creatingAccount: boolean) => boolean}) => {
+    const initialValues: LoginFormValues = { email: 'guest@email.com', password: 'password' };
     const {login} = useAuth()
 
     // @ts-ignore
@@ -49,7 +51,7 @@ const LoginForm = () => {
                     )}
                 </Formik>
                 <div className="flex justify-between w-full">
-                    <button className='link-btn'>Forgot Email?</button>
+                    <button className='link-btn' onClick={() => setCreatingAccount(true)}>Create Account</button>
                     <button className='link-btn'>Forgot Password?</button>
                 </div>
             </div>
