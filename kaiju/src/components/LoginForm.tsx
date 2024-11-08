@@ -2,6 +2,7 @@ import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from 'yup';
 import '../styles/components/LoginForm.scss'
 import {useAuth} from "./AuthProvider.tsx";
+import Button from "./Button.tsx";
 
 type LoginFormValues = {
     email: string;
@@ -13,8 +14,10 @@ const validationSchema = Yup.object ({
     password: Yup.string().required('Required'),
 })
 
-const LoginForm = () => {
-    const initialValues: LoginFormValues = { email: '', password: '' };
+
+
+const LoginForm = ({setCreatingAccount}: {setCreatingAccount: (creatingAccount: boolean) => void}) => {
+    const initialValues: LoginFormValues = { email: 'guest@email.com', password: 'password' };
     const {login} = useAuth()
 
     // @ts-ignore
@@ -42,16 +45,13 @@ const LoginForm = () => {
                                 <ErrorMessage name="email" component="div" className='error-msg'/>
                                 <Field type="password" name="password" placeholder="Password" className='input-field'/>
                                 <ErrorMessage name="password" component="div" className='error-msg'/>
-
-                            <button type="submit" disabled={isSubmitting} className='submit-btn'>
-                                Submit
-                            </button>
+                                <Button text={"Submit"} disabled={isSubmitting} type={"submit"}/>
                             </div>
                         </Form>
                     )}
                 </Formik>
                 <div className="flex justify-between w-full">
-                    <button className='link-btn'>Forgot Email?</button>
+                    <button className='link-btn' onClick={() => setCreatingAccount(true)}>Create Account</button>
                     <button className='link-btn'>Forgot Password?</button>
                 </div>
             </div>

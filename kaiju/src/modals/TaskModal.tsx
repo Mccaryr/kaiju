@@ -33,8 +33,6 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
     const [updateTask] = useUpdateTaskMutation();
     const [deleteTask] = useDeleteTaskMutation()
 
-    console.log("modalProps: ", modalProps)
-    console.log("modalType: ", modalType)
 
     const dispatch = useDispatch();
 

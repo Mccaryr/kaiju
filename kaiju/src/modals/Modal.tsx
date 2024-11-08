@@ -20,7 +20,7 @@ const Modal = ({ refetch }: { refetch: () => void }) => {
                 >X
                 </button>
             </div>
-            <TaskModal modalType={modalType} modalProps={modalProps} refetch={refetch}/>
+                <TaskModal modalType={modalType} modalProps={modalProps} refetch={refetch}/>
         </div>
     )
 }

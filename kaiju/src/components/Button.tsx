@@ -5,10 +5,12 @@ import '../styles/components/Button.scss'
 interface ButtonProps {
     text: string;
     action?: () => void;
+    disabled?: boolean;
+    type?: "submit" | "reset" | "button";
 }
-const Button:React.FC<ButtonProps> = ({text, action}) => {
+const Button:React.FC<ButtonProps> = ({text, action, disabled, type}) => {
     return (
-        <button className='btn' onClick={action}>
+        <button className='btn' type={type} onClick={action} disabled={disabled}>
             {text}
         </button>
     )
