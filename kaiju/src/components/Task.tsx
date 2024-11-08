@@ -8,6 +8,7 @@ type TaskProps = {
 }
 
 const Task: React.FC<TaskProps> = ({task}) => {
+
     return (
         <div className='task-container border-2 w-[95%] rounded-lg shadow-lg flex flex-col items-center'
              onClick={() => openModal({modalType: 'VIEW_TASK'})}
@@ -19,7 +20,7 @@ const Task: React.FC<TaskProps> = ({task}) => {
                 <p className='p-3'>{task.type}</p>
                 <div className='flex p-3 gap-2'>
                     <p>{task.points}</p>
-                    <p>{task.assignee.match(/^[^@]+/)[0]}</p>
+                    <p>{task.assignee?.match(/^[^@]+/)?.[0] || 'Unassigned'}</p>
                 </div>
             </div>
         </div>

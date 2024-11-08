@@ -49,6 +49,7 @@ const TaskFilter = () => {
                 value={type}
                 onChange={(option) => {
                     setType(option)
+                    // @ts-ignore
                     dispatch(setFilter({taskType: option.value}))
                 }}
                 options={typeOptions}

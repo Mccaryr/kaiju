@@ -16,7 +16,7 @@ const validationSchema = Yup.object ({
 
 
 
-const LoginForm = ({setCreatingAccount}: {setCreatingAccount: (creatingAccount: boolean) => boolean}) => {
+const LoginForm = ({setCreatingAccount}: {setCreatingAccount: (creatingAccount: boolean) => void}) => {
     const initialValues: LoginFormValues = { email: 'guest@email.com', password: 'password' };
     const {login} = useAuth()
 

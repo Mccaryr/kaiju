@@ -1,8 +1,8 @@
 import Header from "../components/Header.tsx";
 import LoginForm from "../components/LoginForm.tsx";
 import apocalypticLandscape from "../assets/apocalypticLandscape.webp";
-import React, {SetStateAction} from "react";
 import CreateAccount from "../components/CreateAccount.tsx";
+import React from "react";
 
 const Landing = () => {
     const [creatingAccount, setCreatingAccount] = React.useState<boolean>(false)

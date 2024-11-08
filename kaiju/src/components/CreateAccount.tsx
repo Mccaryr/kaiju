@@ -5,7 +5,7 @@ import Button from "./Button.tsx";
 import {useAuth} from "./AuthProvider.tsx";
 
 
-const CreateAccount = ({setCreatingAccount}: {setCreatingAccount: (creatingAccount: boolean) => boolean}) => {
+const CreateAccount = ({setCreatingAccount}: {setCreatingAccount: (creatingAccount: boolean) => void}) => {
     const {createAccount} = useAuth()
 
     const validationSchema = Yup.object({
@@ -13,7 +13,7 @@ const CreateAccount = ({setCreatingAccount}: {setCreatingAccount: (creatingAccou
         password: Yup.string().required('Required')
     })
 
-    const handleSubmit = (userData: {}) => {
+    const handleSubmit = (userData: {email: string, password: string}) => {
         createAccount(userData);
     }
 
@@ -26,7 +26,7 @@ const CreateAccount = ({setCreatingAccount}: {setCreatingAccount: (creatingAccou
                     email: "",
                     password: ""
                 }} onSubmit={handleSubmit} validationSchema={validationSchema}>
-                    {({values, setFieldValue, isSubmitting, handleSubmit}) => (
+                    {({}) => (
                         <Form>
                             <div className="form-group">
                                 <Field

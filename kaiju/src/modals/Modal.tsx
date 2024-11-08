@@ -4,9 +4,8 @@ import {RootState} from '../app/store.ts';
 import {closeModal} from "../features/modalSlice.ts";
 import {useDispatch} from "react-redux";
 import '../styles/components/Modal.scss'
-import CreateAccount from "../components/CreateAccount.tsx";
 
-const Modal = ({ refetch }: { refetch?: () => void }) => {
+const Modal = ({ refetch }: { refetch: () => void }) => {
     const {isVisible, modalType, modalProps} = useSelector((state: RootState) => state.modal)
     const dispatch = useDispatch();
 

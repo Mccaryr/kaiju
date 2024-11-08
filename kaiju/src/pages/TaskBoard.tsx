@@ -18,7 +18,7 @@ const TaskBoard = () => {
     // @ts-ignore
     const searchTerm = useSelector((state: RootState) => state.filter.searchTerm)
     const taskType = useSelector((state: RootState) => state.filter.taskType)
-    const { data: tasksData, error, isLoading, refetch} = useGetTasksQuery({searchTerm, taskType})
+    const { data: tasksData, refetch} = useGetTasksQuery({searchTerm, taskType})
 
     useEffect(() => {
      const timerId = setTimeout(() => {
