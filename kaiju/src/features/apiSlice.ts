@@ -20,7 +20,7 @@ export const apiSlice = createApi({
             query: ({searchTerm = '', taskType = ''}) => {
                 const params = new URLSearchParams();
                 if (searchTerm) params.append('searchTerm', searchTerm);
-                if (taskType) params.append('type', taskType);
+                if (taskType && taskType !== "All") params.append('type', taskType);
                 if(!searchTerm.length && !taskType.length) {
                     return 'tasks'
                 } else {

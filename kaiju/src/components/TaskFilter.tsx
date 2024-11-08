@@ -16,7 +16,7 @@ const TaskFilter = () => {
     const typeOptions: OptionsType<Option> = [
         {label: "Story", value: "Story"},
         {label: "Bug", value: "Bug"},
-        {label: "Other", value: "Other"},
+        {label: "All", value: "All"},
     ]
 
     const customStyles = {

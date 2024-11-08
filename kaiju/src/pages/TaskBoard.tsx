@@ -21,7 +21,10 @@ const TaskBoard = () => {
     const { data: tasksData, error, isLoading, refetch} = useGetTasksQuery({searchTerm, taskType})
 
     useEffect(() => {
-     refetch()
+     const timerId = setTimeout(() => {
+         refetch()
+     }, 500)
+        return () => {clearTimeout(timerId)}
     }, [searchTerm, taskType])
 
     return (

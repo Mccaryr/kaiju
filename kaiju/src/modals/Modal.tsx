@@ -13,7 +13,7 @@ const Modal = ({ refetch }: { refetch?: () => void }) => {
     if (!isVisible) { return null}
 
     return (
-        <div className='h-[50vh] w-[90vw] z-20 rounded-2xl modal'>
+        <div className='h-[90vh] w-[90vw] z-20 rounded-2xl modal'>
             <div className='top-0 right-0 relative'>
                 <button
                     onClick={() => dispatch(closeModal())}
