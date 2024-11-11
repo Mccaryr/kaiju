@@ -17,3 +17,9 @@
     scale: 110%;
   }
 }
+
+@media(max-width: 600px) {
+  .btn {
+    font-size: 0.8rem;
+  }
+}

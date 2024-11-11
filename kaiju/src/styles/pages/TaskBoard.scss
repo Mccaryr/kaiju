@@ -1,12 +1,10 @@
 @import '../../styles/shared/_variables';
 
 .dropdown-content {
-  display: none;
   position: absolute;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
   z-index: 1;
   background-color: $primary-color;
-  //min-width: 150px; // Ensures a minimum width for the dropdown
   max-width: 100%;
   right:1rem;
   margin-right:3rem;
@@ -24,15 +22,19 @@
     border: #00FF00 solid 1px;
 }
 
-.dropdown:hover .dropdown-content {
-  display: block;
-}
 
 .dropdown-btn {
   background-color: transparent;
+  outline:none;
+  border:none;
 
   &:hover {
     outline:none;
     border:none;
+
+  }
+
+  &:focus {
+    outline:none;
   }
 }

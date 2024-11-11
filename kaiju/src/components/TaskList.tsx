@@ -102,17 +102,17 @@ const TaskList: React.FC<TasksDataProps> = ({tasksData}) => {
 
     return (
         <DragDropContext onDragEnd={onDragEnd}>
-            <div className="flex p-3 h-[85vh] justify-around">
+            <div className="flex p-3 sm:h-[85vh] justify-around sm:flex-row flex-col gap-2">
                 {Object.keys(tasks).map((designation) => (
                     <Droppable droppableId={designation} key={designation}>
                         {(provided: DroppableProvided) => (
                             <div
                                 {...provided.droppableProps}
                                 ref={provided.innerRef}
-                                className="task-list-container flex flex-col h-full items-center gap-2 border-2 w-[18vw]"
+                                className="task-list-container flex sm:flex-col h-full items-center gap-2 border-2 sm:w-[18vw] flex-row min-h-[15vh]"
                             >
-                                <h5 className='text-left w-full p-5'>{designation.toUpperCase()}</h5>
-                                <div className='tasks-container w-full flex flex-col items-center gap-2 pt-4'>
+                                <h5 className='text-left w-full p-5 text-xs sm:text-xl'>{designation.toUpperCase()}</h5>
+                                <div className='tasks-container w-full flex sm:flex-col items-center gap-2 pt-4 px-2 flex-row'>
                                 {tasks[designation].map((task, index) => (
                                     <Draggable key={task.id} draggableId={task.id ? task.id.toString() : null} index={index}>
                                         {(provided: DraggableProvided) => (

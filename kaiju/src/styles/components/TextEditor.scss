@@ -17,3 +17,13 @@
 .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
   background-color:$primary-color !important;
 }
+
+@media(max-width: 600px) {
+  .text-editor {
+    width: 90vw !important;
+  }
+
+  .ql-toolbar.ql-snow + .ql-container.ql-snow {
+    height: 30vh !important;
+  }
+}
