@@ -52,7 +52,7 @@ const LoginForm = ({setCreatingAccount}: {setCreatingAccount: (creatingAccount: 
                 </Formik>
                 <div className="flex justify-between w-full">
                     <button className='link-btn' onClick={() => setCreatingAccount(true)}>Create Account</button>
-                    <button className='link-btn'>Forgot Password?</button>
+                    {/*<button className='link-btn'>Forgot Password?</button>*/}
                 </div>
             </div>
         </div>

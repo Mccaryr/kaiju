@@ -132,8 +132,8 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
             validationSchema={validationSchema}
             >
             {({values, setFieldValue, handleSubmit, isSubmitting}) => (
-                <Form className='flex flex-col items-center gap-4' onSubmit={handleSubmit}>
-                    <div className='flex flex-col items-center gap-2'>
+                <Form className='flex flex-col items-center sm:gap-4 gap-[3rem]' onSubmit={handleSubmit}>
+                    <div className='flex flex-col items-center gap-2 pt-10'>
                         <h3>Create Task</h3>
                         <Field
                             type="text"
@@ -143,7 +143,7 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
                         />
                         <ErrorMessage name="title" component="div" className="text-red-500" />
                     </div>
-                    <div className='flex flex-col items-center gap-2 w-full h-[50vh]'>
+                    <div className='flex flex-col items-center gap-2 w-full sm:h-[50vh]'>
                         <label>Task Description</label>
                        <Field
                            component={TextEditor}
@@ -154,8 +154,8 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
 
                         <ErrorMessage name="description" component="div" className="text-red-500" />
                     </div>
-                    <div className='flex items-center w-3/4 justify-evenly px-4 py-5 gap-2.5'>
-                        <div className='w-1/5'>
+                    <div className='grid grid-cols-2 sm:grid-cols-4 items-center sm:w-3/4 w-full justify-evenly px-4 sm:py-2 gap-2.5'>
+                        <div>
                             <label>Type</label>
                             <Select
                                 styles={customStyles}
@@ -166,7 +166,7 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
                             />
                             <ErrorMessage name="type" component="div" className="text-red-500"/>
                         </div>
-                        <div className='w-2/5'>
+                        <div>
                             <label>Status</label>
                             <Select
                                 styles={customStyles}
@@ -178,7 +178,7 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
                             />
                             <ErrorMessage name="type" component="div" className="text-red-500"/>
                         </div>
-                        <div className='w-2/5'>
+                        <div>
                             <label>Assigned To</label>
                             <Select
                                 styles={customStyles}
@@ -190,7 +190,7 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
                             />
                             <ErrorMessage name="assignee" component="div" className="text-red-500"/>
                         </div>
-                        <div className='w-1/5 flex flex-col'>
+                        <div className='flex flex-col'>
                             <label>Points</label>
                             <Field
                                 name="points"

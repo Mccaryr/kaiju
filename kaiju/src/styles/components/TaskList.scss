@@ -10,3 +10,9 @@
     @include display-font();
   }
 }
+
+@media(max-width: 640px) {
+  .tasks-container {
+    padding-top:0 !important;
+  }
+}

@@ -42,7 +42,7 @@ const TaskFilter = () => {
 
 
     return (
-        <div className='mb-2 p-8 flex flex-row gap-5 align-items-center'>
+        <div className='mb-2 p-8 flex gap-5 align-items-center flex-col sm:flex-row'>
             <SearchBar />
             <Select
                 styles={customStyles}
@@ -54,6 +54,7 @@ const TaskFilter = () => {
                 }}
                 options={typeOptions}
                 placeholder="Task Type"
+                className={'max-w-[295px]'}
             />
         </div>
     )
