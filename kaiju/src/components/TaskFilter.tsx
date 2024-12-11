@@ -27,6 +27,12 @@ const TaskFilter = () => {
             padding: '5px',
             backgroundColor: 'rgb(33, 53, 71)',
         }),
+        menu: (provided: any) => ({
+            ...provided,
+            margin: 0,
+            border: 'none',
+            backgroundColor: 'rgb(33, 53, 71)',
+        }),
         option: (provided: any, state: any) => ({
             ...provided,
             color: 'white',

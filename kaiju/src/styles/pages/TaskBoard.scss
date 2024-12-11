@@ -8,6 +8,7 @@
   max-width: 100%;
   right:1rem;
   margin-right:3rem;
+  border-radius: 0.4rem;
 }
 
 .dropdown-content a {
@@ -20,6 +21,7 @@
 
 .dropdown-content a:hover {
     border: #00FF00 solid 1px;
+    color: white;
 }
 
 
@@ -37,4 +39,60 @@
   &:focus {
     outline:none;
   }
+}
+
+
+.form-field {
+  position: relative;
+}
+
+
+.floating-label {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: #aaa;
+  pointer-events: none;
+  transition: 0.3s ease all;
+  z-index: 1;
+  background-color: transparent;
+  padding: 0 5px;
+}
+
+.floating-label.float-up {
+  top: -7px;
+  font-size: 12px;
+}
+
+.custom-select__control {
+  border-color: #63db34;
+  padding: 10px;
+  background-color: $primary-color;
+}
+
+.custom-select__menu {
+  background-color: $primary-color;
+}
+
+.custom-select__option:hover {
+  background-color: $primary-color;
+  color: white;
+}
+
+
+.custom-select__control--focused .floating-label,
+.custom-select__control .custom-select__single-value {
+  top: 5px;
+  font-size: 16px;
+  color: white;
+}
+
+
+.custom-select__control.has-value .floating-label {
+  top: 5px;
+  font-size: 12px;
+  color: #00796b;
+  background-color: $primary-color;
 }

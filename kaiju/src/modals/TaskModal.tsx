@@ -84,7 +84,8 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
             status: values.status.value,
             assignee: values.assignee.label,
             points: values.points,
-            id: modalProps.id
+            id: modalProps.id,
+            projectId: modalProps.projectId
         }
 
 
