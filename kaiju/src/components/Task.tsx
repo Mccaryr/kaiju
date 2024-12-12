@@ -13,7 +13,7 @@ const Task: React.FC<TaskProps> = ({task}) => {
         <div className='task-container border-2 w-[95%] rounded-lg shadow-lg flex flex-col items-center'
              onClick={() => openModal({modalType: 'VIEW_TASK'})}
         >
-            <div className='font-bold text-gray-900 dark:text-gray-400 sm:p-3 p-1'>
+            <div className='font-bold text-white sm:p-3 p-1'>
                 <h3 className='sm:text-base text-sm'>{task.title}</h3>
             </div>
             <div className='flex justify-between w-full'>

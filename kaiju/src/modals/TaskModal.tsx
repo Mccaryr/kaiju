@@ -3,12 +3,13 @@ import {Option} from "../types/option.ts";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from "yup";
 import {useCreateTaskMutation, useDeleteTaskMutation, useUpdateTaskMutation} from "../features/apiSlice.ts";
-import Select from "react-select";
 import {closeModal} from "../features/modalSlice.ts";
 import {useDispatch} from "react-redux";
 import TextEditor from "../components/TextEditor.tsx";
 import '../styles/components/Button.scss'
 import '../styles/components/Modal.scss'
+import CustomSelect from "../components/CustomSelect.tsx";
+import CustomInput from "../components/CustomInput.tsx";
 
 interface TaskModalProps {
     modalType?: string,
@@ -59,13 +60,6 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
         {label: "COMPLETED", value: "COMPLETED"}
     ]
 
-    const customStyles = {
-        option: (provided: any, state: any) => ({
-            ...provided,
-            color: state.isFocused ? 'black' : 'white',
-            backgroundColor: state.isFocused ? 'white' : 'black',
-        })
-    }
 
     const validationSchema = Yup.object({
         title: Yup.string().required("Required"),
@@ -124,9 +118,9 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
             initialValues={{
                 title: modalProps.title || "",
                 description: modalProps.description || "",
-                type: modalProps.type ? {label: modalProps.type, value: modalProps.type} : [],
-                status: modalProps.status ? {label: modalProps.status, value: modalProps.status} : [],
-                assignee: modalProps.assignee ? {label: modalProps.assignee, value: modalProps.assignee} : [],
+                type: modalProps.type ? {label: modalProps.type, value: modalProps.type} : null,
+                status: modalProps.status ? {label: modalProps.status, value: modalProps.status} : null,
+                assignee: modalProps.assignee ? {label: modalProps.assignee, value: modalProps.assignee} : null,
                 points: modalProps.points || 1
             }}
             onSubmit={handleSubmit}
@@ -135,16 +129,10 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
             {({values, setFieldValue, handleSubmit, isSubmitting}) => (
                 <Form className='flex flex-col items-center sm:gap-4 gap-[3rem]' onSubmit={handleSubmit}>
                     <div className='flex flex-col items-center gap-2 pt-10'>
-                        <h3>Create Task</h3>
-                        <Field
-                            type="text"
-                            name="title"
-                            placeholder="Task Title"
-                            className='h-[5vh] rounded-lg text-center'
-                        />
+                        <CustomInput type={"text"} name={"title"} label={`${modalType === "CREATE_TASK" ? "Create Task" : "Update Task"}`} value={values.title} />
                         <ErrorMessage name="title" component="div" className="text-red-500" />
                     </div>
-                    <div className='flex flex-col items-center gap-2 w-full sm:h-[50vh]'>
+                    <div className='flex flex-col items-center gap-2 w-full'>
                         <label>Task Description</label>
                        <Field
                            component={TextEditor}
@@ -155,51 +143,21 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
 
                         <ErrorMessage name="description" component="div" className="text-red-500" />
                     </div>
-                    <div className='grid grid-cols-2 sm:grid-cols-4 items-center sm:w-3/4 w-full justify-evenly px-4 sm:py-2 gap-2.5'>
+                    <div className='grid grid-cols-2 items-center sm:w-3/4 w-full justify-evenly px-4 sm:py-2 gap-8'>
                         <div>
-                            <label>Type</label>
-                            <Select
-                                styles={customStyles}
-                                value={values.type}
-                                onChange={(option) => setFieldValue("type", option)}
-                                options={typeOptions}
-                                placeholder="Task Type"
-                            />
+                            <CustomSelect label={'Type'} options={typeOptions} onChange={(option) => setFieldValue("type", option)} value={values.type}/>
+                            <ErrorMessage name="type" component="div" className="text-red-500"/>
+                        </div>
+                        <div className='flex justify-end'>
+                            <CustomSelect label={'Status'} options={statusOptions} onChange={(option) => setFieldValue("status", option)} value={values.status}/>
                             <ErrorMessage name="type" component="div" className="text-red-500"/>
                         </div>
                         <div>
-                            <label>Status</label>
-                            <Select
-                                styles={customStyles}
-                                value={values.status}
-                                onChange={(option) => setFieldValue("status", option)}
-                                options={statusOptions}
-                                placeholder="Status Type"
-                                menuPlacement={"top"}
-                            />
-                            <ErrorMessage name="type" component="div" className="text-red-500"/>
-                        </div>
-                        <div>
-                            <label>Assigned To</label>
-                            <Select
-                                styles={customStyles}
-                                value={values.assignee}
-                                onChange={(option) => setFieldValue("assignee", option)}
-                                options={assigneeOptions}
-                                placeholder="Assigned To"
-                                menuPlacement={"top"}
-                            />
+                            <CustomSelect label={'Assigned To'} options={assigneeOptions} onChange={(option) => setFieldValue("assignee", option)} value={values.assignee}/>
                             <ErrorMessage name="assignee" component="div" className="text-red-500"/>
                         </div>
-                        <div className='flex flex-col'>
-                            <label>Points</label>
-                            <Field
-                                name="points"
-                                type="number"
-                                min={1}
-                                defaultValue={1}
-                                className='rounded-lg bg-white p-2 text-black w-[75%]'
-                            />
+                        <div className='flex justify-end'>
+                            <CustomInput label={"Points"} type={"number"} name={"points"} value={values.points} />
                             <ErrorMessage name="points" component="div" className="text-red-500"/>
                         </div>
                     </div>

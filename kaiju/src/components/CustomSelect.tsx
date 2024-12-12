@@ -29,6 +29,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({label, options, onChange, va
             margin: 0,
             border: 'none',
             backgroundColor: 'rgb(33, 53, 71)',
+            zIndex: 2,
         }),
         option: (provided: any, state: any) => ({
             ...provided,
@@ -36,6 +37,8 @@ const CustomSelect: React.FC<CustomSelectProps> = ({label, options, onChange, va
             backgroundColor: 'rgb(33, 53, 71)',
             border: state.isFocused ? '1px solid #00FF00' : '',
             cursor: 'pointer',
+            zIndex: 9999,
+            overflowY: 'auto'
         }),
         singleValue: (provided: any) => ({
             ...provided,
@@ -44,7 +47,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({label, options, onChange, va
     }
 
     return (
-        <div className='form-field sm:w-[20%] w-[40%]'>
+        <div className='form-field sm:w-[200px] w-[175px]'>
             <label htmlFor="projectName"
                    className={`floating-label ${focused || value?.value ? 'float-up' : ''}`}>{label}</label>
             <Select id="projectName" styles={customStyles} classNamePrefix="custom-select"
