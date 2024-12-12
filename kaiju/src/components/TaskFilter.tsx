@@ -1,10 +1,9 @@
 import SearchBar from "./SearchBar.tsx";
-import Select from "react-select";
-import OptionsType from "react-select";
 import {Option} from "../types/option.ts";
 import {useState} from "react";
 import {useDispatch} from "react-redux";
 import {setFilter} from "../features/filterSlice.ts"
+import CustomSelect from "./CustomSelect.tsx";
 
 
 const TaskFilter = () => {
@@ -13,55 +12,23 @@ const TaskFilter = () => {
 
 
     // @ts-ignore
-    const typeOptions: OptionsType<Option> = [
+    const typeOptions: Option[] = [
         {label: "Story", value: "Story"},
         {label: "Bug", value: "Bug"},
         {label: "All", value: "All"},
     ]
 
-    const customStyles = {
-        control: (provided: any) => ({
-            ...provided,
-            borderColor: 'white',
-            boxShadow: '0 0 0 1px 00FF00',
-            padding: '5px',
-            backgroundColor: 'rgb(33, 53, 71)',
-        }),
-        menu: (provided: any) => ({
-            ...provided,
-            margin: 0,
-            border: 'none',
-            backgroundColor: 'rgb(33, 53, 71)',
-        }),
-        option: (provided: any, state: any) => ({
-            ...provided,
-            color: 'white',
-            backgroundColor: 'rgb(33, 53, 71)',
-            border: state.isFocused ? '1px solid #00FF00' : '',
-            cursor: 'pointer',
-        }),
-        singleValue: (provided: any) => ({
-            ...provided,
-            color: 'white',
-        })
+    const handleChange = (option: any) => {
+        setType(option)
+        // @ts-ignore
+        dispatch(setFilter({taskType: option.value}))
     }
 
 
     return (
         <div className='mb-2 p-8 flex gap-5 align-items-center flex-col sm:flex-row'>
             <SearchBar />
-            <Select
-                styles={customStyles}
-                value={type}
-                onChange={(option) => {
-                    setType(option)
-                    // @ts-ignore
-                    dispatch(setFilter({taskType: option.value}))
-                }}
-                options={typeOptions}
-                placeholder="Task Type"
-                className={'max-w-[295px]'}
-            />
+            <CustomSelect value={type} options={typeOptions} label={'Task Type'} onChange={handleChange} />
         </div>
     )
 }

@@ -11,7 +11,7 @@ import {useGetProjectsQuery, useGetTasksQuery} from "../features/apiSlice.ts";
 import {useEffect, useState} from "react";
 import {skipToken} from "@reduxjs/toolkit/query";
 import {Option} from "../types/option.ts";
-import Select from "react-select";
+import CustomSelect from "../components/CustomSelect.tsx";
 
 
 const TaskBoard = () => {
@@ -27,11 +27,6 @@ const TaskBoard = () => {
     const { data: projectsData} = useGetProjectsQuery({})
     const { data: tasksData, refetch: refetchTasks} = useGetTasksQuery(project?.value ? {searchTerm, taskType, projectId: project.value || ""}
     : skipToken)
-
-    const [focused, setFocused] = useState(false);
-
-    const handleFocus = () => setFocused(true);
-    const handleBlur = () => setFocused(false);
 
 
     useEffect(() => {
@@ -52,44 +47,11 @@ const TaskBoard = () => {
         }
     }, [projectsData]);
 
-    const customStyles = {
-        control: (provided: any) => ({
-            ...provided,
-            borderColor: 'white',
-            boxShadow: '0 0 0 1px 00FF00',
-            padding: '5px',
-            backgroundColor: 'rgb(33, 53, 71)',
-        }),
-        menu: (provided: any) => ({
-            ...provided,
-            margin: 0,
-            border: 'none',
-            backgroundColor: 'rgb(33, 53, 71)',
-        }),
-        option: (provided: any, state: any) => ({
-            ...provided,
-            color: 'white',
-            backgroundColor: 'rgb(33, 53, 71)',
-            border: state.isFocused ? '1px solid #00FF00' : '',
-            cursor: 'pointer',
-        }),
-        singleValue: (provided: any) => ({
-            ...provided,
-            color: 'white',
-        })
-    }
-
 
     return (
         <div className='p-4'>
             <div className="flex flex-row justify-between w-full lg:px-10 sm:px-2 items-center">
-                <div className='form-field sm:w-[20%] w-[40%]'>
-                    <label htmlFor="projectName" className={`floating-label ${focused || project?.value ? 'float-up' : ''}`}>Projects</label>
-                    <Select id="projectName" styles={customStyles} classNamePrefix="custom-select" className="custom-select-container" onFocus={handleFocus}
-                            onBlur={handleBlur} options={projectOptions} placeholder="" value={project}
-                            onChange={(newValue) => setProject(newValue)}/>
-
-                </div>
+                <CustomSelect label={'Project'} options={projectOptions} onChange={setProject} value={project} />
                 <div className="flex items-center gap-7 cursor-pointer">
                     <div className="dropdown cursor-pointer outline-none" onClick={() => setDropdownActive(!dropdownActive)}>
                         <button className='dropdown-btn'>
@@ -109,8 +71,7 @@ const TaskBoard = () => {
             <TaskFilter/>
             <TaskList tasksData={tasksData}/>
             {isVisible && (
-                <div
-                    className='w-full h-full flex items-center justify-center z-10 fixed top-0 left-0 right-0 bottom-0'>
+                <div className='w-full h-full flex items-center justify-center z-10 fixed top-0 left-0 right-0 bottom-0'>
                     <div className="absolute w-full h-full" style={{backgroundColor: 'rgba(0, 0, 0, 0.75)'}}/>
                     <Modal refetch={refetchTasks}/>
                 </div>
