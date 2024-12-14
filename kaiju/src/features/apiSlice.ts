@@ -15,17 +15,21 @@ export const apiSlice = createApi({
         }
     }),
 
+
     endpoints: (builder) => ({
+        getProjects: builder.query({
+            query: () => {
+                return 'projects'
+            }
+        }),
         getTasks: builder.query({
-            query: ({searchTerm = '', taskType = ''}) => {
+            query: ({searchTerm = '', taskType = '', projectId = ''}) => {
                 const params = new URLSearchParams();
                 if (searchTerm) params.append('searchTerm', searchTerm);
                 if (taskType && taskType !== "All") params.append('type', taskType);
-                if(!searchTerm.length && !taskType.length) {
-                    return 'tasks'
-                } else {
-                    return `tasks?${params.toString()}`;
-                }
+                if(projectId) params.append('projectId', projectId)
+
+                return `tasks?${params.toString()}`;
             },
         }),
         updateTask: builder.mutation({
@@ -53,6 +57,7 @@ export const apiSlice = createApi({
 
 
 export const {
+    useGetProjectsQuery,
     useGetTasksQuery,
     useUpdateTaskMutation,
     useCreateTaskMutation,

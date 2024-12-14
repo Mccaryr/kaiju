@@ -1,0 +1,26 @@
+@import '../../styles/shared/_variables';
+
+.form-field {
+  position: relative;
+}
+
+
+.floating-label {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: #aaa;
+  pointer-events: none;
+  transition: 0.3s ease all;
+  z-index: 1;
+  background-color: transparent;
+  padding: 0 5px;
+}
+
+.floating-label.float-up {
+  top: -7px;
+  font-size: 12px;
+}
+

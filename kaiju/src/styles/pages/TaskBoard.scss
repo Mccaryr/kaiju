@@ -8,6 +8,7 @@
   max-width: 100%;
   right:1rem;
   margin-right:3rem;
+  border-radius: 0.4rem;
 }
 
 .dropdown-content a {
@@ -20,6 +21,7 @@
 
 .dropdown-content a:hover {
     border: #00FF00 solid 1px;
+    color: white;
 }
 
 
@@ -38,3 +40,4 @@
     outline:none;
   }
 }
+

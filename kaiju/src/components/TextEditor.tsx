@@ -43,8 +43,8 @@ const TextEditor: React.FC<TextEditorProps> = ({ value, onChange }) => {
     }, [value, onChange]);
 
     return (
-        <div className='text-editor w-[75vw]'>
-            <div ref={editorRef} className='bg-white text-black h-[40vh]'></div>
+        <div className='text-editor w-[65vw]'>
+            <div ref={editorRef} className='bg-gray-800 text-white h-[30vh]'></div>
         </div>
     );
 };
