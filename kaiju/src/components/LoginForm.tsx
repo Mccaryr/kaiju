@@ -4,6 +4,7 @@ import '../styles/components/LoginForm.scss'
 import {useAuth} from "./AuthProvider.tsx";
 import Button from "./Button.tsx";
 import {useState} from "react";
+import Loader from "./Loader.tsx";
 
 type LoginFormValues = {
     email: string;
@@ -23,13 +24,19 @@ const LoginForm = ({setCreatingAccount}: {setCreatingAccount: (creatingAccount: 
     const [isSubmitting, setIsSubmitting] = useState(false);
 
 
-    // @ts-ignore
-    const handleSubmit = (values: LoginFormValues) => {
+    const handleSubmit = async(values: LoginFormValues) => {
         setIsSubmitting(true);
-        setTimeout(() => {
+
+        try {
             login(values)
-            setIsSubmitting(false);
-        }, 400);
+        } catch(e) {
+            console.log(e)
+        } finally {
+            setTimeout(() => {
+                setIsSubmitting(false);
+            }, 5000)
+        }
+
     }
 
 
@@ -37,11 +44,17 @@ const LoginForm = ({setCreatingAccount}: {setCreatingAccount: (creatingAccount: 
         <div className="login-container relative z-10 py-10">
             <div className="login-form sm:w-1/2">
                 {loggedIn && isSubmitting ? (
-                        <div>
-                            <p>Please be patient on initial authentication call. This application uses a free tier of
-                                hosting</p>
-                            <p>that goes to sleep periodically. It should be available in about a minute </p>
+                    <>
+                        <div className='text-[0.8rem] sm:text-[1rem]'>
+                            <p>Please be patient on initial authentication call. </p>
+                            <br/>
+                            <p>This application uses a free tier of hosting that goes to sleep periodically.</p>
+                            <br/>
+                            <p>    It should be available in about a minute</p>
+
                         </div>
+                        <Loader />
+                    </>
                     )
                     :
                     <>
@@ -63,9 +76,7 @@ const LoginForm = ({setCreatingAccount}: {setCreatingAccount: (creatingAccount: 
                                 </Form>
                             )}
                         </Formik>
-                        <div className="flex justify-between w-full">
                             <button className='link-btn' onClick={() => setCreatingAccount(true)}>Create Account</button>
-                        </div>
                     </>
                 }
             </div>
