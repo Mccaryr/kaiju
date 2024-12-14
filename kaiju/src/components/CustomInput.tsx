@@ -25,7 +25,7 @@ const CustomInput: React.FC<CustomInputProps> = ({label, type, name, value}) => 
                         type={type}
                         min={0}
                         defaultValue={0}
-                        className='custom-input rounded-[0.2rem] p-2 sm:w-[200px] w-[175px]'
+                        className='custom-input rounded-[0.2rem] p-2 sm:w-[200px] w-[150px] h-[45px]'
                         onFocus={handleFocus}
                         onBlur={handleBlur}
                     />

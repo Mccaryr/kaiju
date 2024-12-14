@@ -10,6 +10,12 @@
   justify-content: space-between;
 }
 
+.header h3 {
+  background: linear-gradient(180deg, $tertiary-accent-color, $secondary-accent-color);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .header-left {
   @include display-font();
   text-align: center;
@@ -20,10 +26,6 @@
   flex-direction: column;
   max-width:100%;
   justify-content: center;
-}
-
-.header-right {
-  //flex: 1;
 }
 
 .header-right img {

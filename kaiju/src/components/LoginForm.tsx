@@ -3,6 +3,7 @@ import * as Yup from 'yup';
 import '../styles/components/LoginForm.scss'
 import {useAuth} from "./AuthProvider.tsx";
 import Button from "./Button.tsx";
+import {useState} from "react";
 
 type LoginFormValues = {
     email: string;
@@ -18,13 +19,16 @@ const validationSchema = Yup.object ({
 
 const LoginForm = ({setCreatingAccount}: {setCreatingAccount: (creatingAccount: boolean) => void}) => {
     const initialValues: LoginFormValues = { email: 'guest@email.com', password: 'password' };
-    const {login} = useAuth()
+    const {login, loggedIn} = useAuth()
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
 
     // @ts-ignore
-    const handleSubmit = (values: LoginFormValues, { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void}) => {
+    const handleSubmit = (values: LoginFormValues) => {
+        setIsSubmitting(true);
         setTimeout(() => {
             login(values)
-            setSubmitting(false);
+            setIsSubmitting(false);
         }, 400);
     }
 
@@ -32,28 +36,38 @@ const LoginForm = ({setCreatingAccount}: {setCreatingAccount: (creatingAccount: 
     return (
         <div className="login-container relative z-10 py-10">
             <div className="login-form sm:w-1/2">
-                <h3>Sign In!</h3>
-                <Formik
-                    initialValues={initialValues}
-                    validatationSchema={validationSchema}
-                    onSubmit={handleSubmit}
-                >
-                    {({isSubmitting}) => (
-                        <Form>
-                            <div className='form-group'>
-                                <Field type="email" name="email" placeholder="Email" className='input-field'/>
-                                <ErrorMessage name="email" component="div" className='error-msg'/>
-                                <Field type="password" name="password" placeholder="Password" className='input-field'/>
-                                <ErrorMessage name="password" component="div" className='error-msg'/>
-                                <Button text={"Submit"} disabled={isSubmitting} type={"submit"}/>
-                            </div>
-                        </Form>
-                    )}
-                </Formik>
-                <div className="flex justify-between w-full">
-                    <button className='link-btn' onClick={() => setCreatingAccount(true)}>Create Account</button>
-                    {/*<button className='link-btn'>Forgot Password?</button>*/}
-                </div>
+                {loggedIn && isSubmitting ? (
+                        <div>
+                            <p>Please be patient on initial authentication call. This application uses a free tier of
+                                hosting</p>
+                            <p>that goes to sleep periodically. It should be available in about a minute </p>
+                        </div>
+                    )
+                    :
+                    <>
+                        <h3>Sign In!</h3>
+                        <Formik
+                        initialValues={initialValues}
+                        validatationSchema={validationSchema}
+                        onSubmit={handleSubmit}
+                        >
+                            {({}) => (
+                                <Form>
+                                    <div className='form-group'>
+                                        <Field type="email" name="email" placeholder="Email" className='input-field'/>
+                                        <ErrorMessage name="email" component="div" className='error-msg'/>
+                                        <Field type="password" name="password" placeholder="Password" className='input-field'/>
+                                        <ErrorMessage name="password" component="div" className='error-msg'/>
+                                        <Button text={"Submit"} disabled={isSubmitting} type={"submit"}/>
+                                    </div>
+                                </Form>
+                            )}
+                        </Formik>
+                        <div className="flex justify-between w-full">
+                            <button className='link-btn' onClick={() => setCreatingAccount(true)}>Create Account</button>
+                        </div>
+                    </>
+                }
             </div>
         </div>
     )
