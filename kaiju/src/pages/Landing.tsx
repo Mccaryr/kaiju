@@ -9,7 +9,7 @@ const Landing = () => {
     return (
         <div>
             <Header />
-            <div className="relative w-full h-[75vh] overflow-hidden">
+            <div className="relative w-full h-[85vh] overflow-hidden">
                 {creatingAccount ?
                     <CreateAccount setCreatingAccount={setCreatingAccount} />
                     :

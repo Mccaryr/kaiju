@@ -5,7 +5,6 @@
 .header {
   background-color: $primary-color;
   width: 100vw;
-  height: 25vh;
   display: flex;
   justify-content: space-between;
 }
@@ -14,6 +13,8 @@
   background: linear-gradient(180deg, $tertiary-accent-color, $secondary-accent-color);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: none;
 }
 
 .header-left {
@@ -26,6 +27,7 @@
   flex-direction: column;
   max-width:100%;
   justify-content: center;
+  line-height: 1.3rem !important
 }
 
 .header-right img {
