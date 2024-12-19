@@ -26,7 +26,7 @@ const CreateAccount = ({setCreatingAccount}: {setCreatingAccount: (creatingAccou
                     email: "",
                     password: ""
                 }} onSubmit={handleSubmit} validationSchema={validationSchema}>
-                    {({}) => (
+                    {({isSubmitting}) => (
                         <Form>
                             <div className="form-group">
                                 <Field
@@ -46,7 +46,7 @@ const CreateAccount = ({setCreatingAccount}: {setCreatingAccount: (creatingAccou
                             </div>
                             <div className="flex flex-row gap-[5vw]">
                                 <Button type="button" text="Back" action={() => setCreatingAccount(false)}/>
-                                <Button type={"submit"} text="Create Account"/>
+                                <Button type={"submit"} text="Create Account" disabled={isSubmitting}/>
                             </div>
                         </Form>
                     )}

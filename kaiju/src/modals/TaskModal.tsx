@@ -127,7 +127,7 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
             validationSchema={validationSchema}
             >
             {({values, setFieldValue, handleSubmit, isSubmitting}) => (
-                <Form className='flex flex-col items-center sm:gap-4 gap-[3rem]' onSubmit={handleSubmit}>
+                <Form className='flex flex-col items-center gap-[2rem]' onSubmit={handleSubmit}>
                     <div className='flex flex-col items-center gap-2 pt-10'>
                         <CustomInput type={"text"} name={"title"} label={`${modalType === "CREATE_TASK" ? "Create Task" : "Update Task"}`} value={values.title} />
                         <ErrorMessage name="title" component="div" className="text-red-500" />
@@ -166,7 +166,7 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
                             {modalType === "CREATE_TASK" ? "Submit" : "Update"}
                         </button>
                         {modalType === "UPDATE_TASK" &&
-                            <button type="button" className='bg-red-700 hover:scale-125' onClick={() => handleDeleteTask()}>
+                            <button type="button" disabled={isSubmitting} className='bg-red-700 hover:scale-125' onClick={() => handleDeleteTask()}>
                                 Delete
                             </button>
                         }

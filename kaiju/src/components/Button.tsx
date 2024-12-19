@@ -1,5 +1,6 @@
 import React from "react";
 import '../styles/components/Button.scss'
+import godzillaLoader from "../assets/godzillaLoader.gif";
 
 
 interface ButtonProps {
@@ -9,10 +10,25 @@ interface ButtonProps {
     type?: "submit" | "reset" | "button";
 }
 const Button:React.FC<ButtonProps> = ({text, action, disabled, type}) => {
-    return (
-        <button className='btn' type={type} onClick={action} disabled={disabled}>
+    if(disabled) {
+        return (
+            <>
+                <button className='btn flex row text-center items-center'>
+                    <span>Loading...</span>
+                    <img src={godzillaLoader}
+                         alt={'Loading...'}
+                         className="w-[50px] h-[40px]"
+                    />
+                </button>
+            </>
+        )
+    } else {
+        return (
+
+            <button className='btn' type={type} onClick={action} disabled={disabled}>
             {text}
-        </button>
-    )
+            </button>
+        )
+    }
 }
 export default Button
