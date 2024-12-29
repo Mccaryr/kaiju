@@ -43,7 +43,7 @@ const LoginForm = ({setCreatingAccount}: {setCreatingAccount: (creatingAccount: 
     return (
         <div className="login-container relative z-10 py-10">
             <div className="login-form sm:w-1/2">
-                {loggedIn && isSubmitting ? (
+                {!loggedIn && isSubmitting ? (
                     <>
                         <div className='text-[0.8rem] sm:text-[1rem]'>
                             <p>Please be patient on initial authentication call. </p>

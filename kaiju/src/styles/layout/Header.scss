@@ -5,16 +5,10 @@
 .header {
   background-color: $primary-color;
   width: 100vw;
-  height: 25vh;
   display: flex;
   justify-content: space-between;
 }
 
-.header h3 {
-  background: linear-gradient(180deg, $tertiary-accent-color, $secondary-accent-color);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
 
 .header-left {
   @include display-font();
@@ -26,6 +20,7 @@
   flex-direction: column;
   max-width:100%;
   justify-content: center;
+  line-height: 1.3rem !important
 }
 
 .header-right img {
@@ -38,5 +33,27 @@
   .header-left {
     font-size: 1rem;
     justify-content: center;
+  }
+}
+
+.flashing-text h3 {
+  font-weight: bold;
+  color:$tertiary-accent-color;
+  text-shadow: 0 0 10px $secondary-accent-color, 0 0 20px $secondary-accent-color;
+  animation: strobe 10s linear infinite;
+}
+
+@keyframes strobe {
+  0% {
+    color: $tertiary-accent-color;
+    text-shadow: 0 0 10px $tertiary-accent-color, 0 0 20px $tertiary-accent-color;
+  }
+  50% {
+    color: $secondary-accent-color;
+    text-shadow: 0 0 20px $secondary-accent-color, 0 0 40px $secondary-accent-color;
+  }
+  100% {
+    color: $tertiary-accent-color;
+    text-shadow: 0 0 10px $tertiary-accent-color, 0 0 20px $tertiary-accent-color;
   }
 }

@@ -133,7 +133,7 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
                         <ErrorMessage name="title" component="div" className="text-red-500" />
                     </div>
                     <div className='flex flex-col items-center gap-2 w-full'>
-                        <label>Task Description</label>
+                        <label className="w-[70%] text-left">Task Description</label>
                        <Field
                            component={TextEditor}
                            name="description"
