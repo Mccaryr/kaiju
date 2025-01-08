@@ -6,18 +6,17 @@ import Modal from "../modals/Modal.tsx";
 import {useDispatch, useSelector} from "react-redux";
 import {openModal} from "../features/modalSlice.ts";
 import {RootState} from "../app/store.ts";
-import {useAuth} from "../components/AuthProvider.tsx";
 import {useGetProjectsQuery, useGetTasksQuery} from "../features/apiSlice.ts";
 import {useEffect, useState} from "react";
 import {skipToken} from "@reduxjs/toolkit/query";
 import {Option} from "../types/option.ts";
 import CustomSelect from "../components/CustomSelect.tsx";
+import {logout} from "../features/authSlice.ts";
 
 
 const TaskBoard = () => {
     const dispatch = useDispatch();
     const {isVisible} = useSelector((state: RootState) => state.modal);
-    const {logout} = useAuth()
     // @ts-ignore
     const searchTerm = useSelector((state: RootState) => state.filter.searchTerm)
     const taskType = useSelector((state: RootState) => state.filter.taskType)
@@ -62,7 +61,7 @@ const TaskBoard = () => {
                                 <a href="#" onClick={() => dispatch(openModal({modalType: "CREATE_TASK", modalProps: {projectId: project?.value} }))}>Create
                                     Task</a>
                                 <a href="#" onClick={() => alert("Coming soon")}>Complete Sprint</a>
-                                <a href="/" onClick={() => logout()}>Logout</a>
+                                <a href="/" onClick={() => dispatch(logout())}>Logout</a>
                             </div>
                         )}
                     </div>

@@ -16,7 +16,7 @@
     background-color: #213547;
     color: white;
     padding: 2rem;
-    border-radius: 0.2rem;
+    border-radius: 1rem;
     gap: 2rem;
     justify-content: center;
     align-items: center;
@@ -50,6 +50,7 @@
     .error-msg {
       color: red;
       font-size: 0.875rem;
+      margin-top:-25px;
     }
 
     .submit-btn {

@@ -2,12 +2,14 @@ import { configureStore } from '@reduxjs/toolkit'
 import modalReducer from '../features/modalSlice.ts'
 import {apiSlice} from "../features/apiSlice.ts";
 import filterReducer from '../features/filterSlice.ts'
+import authReducer from '../features/authSlice.ts'
 
 export const store = configureStore({
     reducer: {
         [apiSlice.reducerPath]: apiSlice.reducer,
         modal: modalReducer,
-        filter: filterReducer
+        filter: filterReducer,
+        auth: authReducer
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(apiSlice.middleware)

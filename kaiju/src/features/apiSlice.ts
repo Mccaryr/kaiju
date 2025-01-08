@@ -15,8 +15,14 @@ export const apiSlice = createApi({
         }
     }),
 
-
     endpoints: (builder) => ({
+        login: builder.mutation({
+            query: (userData) => ({
+                url: "/auth/authenticate",
+                method: "POST",
+                body: userData,
+            }),
+        }),
         getProjects: builder.query({
             query: () => {
                 return 'projects'
@@ -52,11 +58,12 @@ export const apiSlice = createApi({
                 method: 'DELETE'
             })
         }),
-    })
+    }),
 });
 
 
 export const {
+    useLoginMutation,
     useGetProjectsQuery,
     useGetTasksQuery,
     useUpdateTaskMutation,
