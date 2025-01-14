@@ -24,23 +24,26 @@ const validationSchema = Yup.object ({
 const LoginForm = ({setCreatingAccount}: {setCreatingAccount: (creatingAccount: boolean) => void}) => {
     const initialValues: LoginFormValues = { email: 'guest@email.com', password: 'password' };
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [error, setError] = useState<string>();
     const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
     const [login] = useLoginMutation()
     const dispatch = useDispatch();
 
 
-    const handleSubmit = async(values: LoginFormValues, setStatus: any) => {
+    const handleSubmit = async(values: LoginFormValues) => {
         setIsSubmitting(true);
 
         try {
-          const {data} = await login(values)
-            if (data?.jwt) {
-                console.log(data.jwt)
-                dispatch(setIsLoggedIn(data.jwt))
+          const result = await login(values)
+            console.log("result: ", result)
+            if (result.data?.jwt) {
+                dispatch(setIsLoggedIn(result.data.jwt))
+            }
+            if(result.error) {
+                setError("Invalid username/password")
             }
         } catch(e: any) {
-            console.error("Login failed", e.message);
-            setStatus(e.message)
+
         } finally {
             setIsSubmitting(false);
         }
@@ -49,8 +52,8 @@ const LoginForm = ({setCreatingAccount}: {setCreatingAccount: (creatingAccount: 
 
 
     return (
-        <div className="login-container relative z-10 py-10">
-            <div className="login-form sm:w-1/2">
+        <div className="login-container relative z-10 h-[85vh]">
+            <div className="login-form sm:w-[40%]">
                 {!isLoggedIn && isSubmitting ? (
                     <>
                         <div className='text-[0.8rem] sm:text-[1rem]'>
@@ -72,14 +75,14 @@ const LoginForm = ({setCreatingAccount}: {setCreatingAccount: (creatingAccount: 
                         validatationSchema={validationSchema}
                         onSubmit={handleSubmit}
                         >
-                            {({status}) => (
+                            {() => (
                                 <Form>
                                     <div className='form-group'>
                                         <Field type="email" name="email" placeholder="Email" className='input-field'/>
                                         <ErrorMessage name="email" component="div" className='error-msg'/>
                                         <Field type="password" name="password" placeholder="Password" className='input-field'/>
                                         <ErrorMessage name="password" component="div" className='error-msg'/>
-                                        {status && <div className="error-msg">{status}</div>}
+                                        {error && <div className="error-msg">{error}</div>}
                                         <Button text={"Submit"} disabled={isSubmitting} type={"submit"}/>
                                     </div>
                                 </Form>

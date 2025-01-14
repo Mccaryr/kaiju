@@ -1,6 +1,6 @@
 import Header from "../components/Header.tsx";
 import LoginForm from "../components/LoginForm.tsx";
-import apocalypticLandscape from "../assets/apocalypticLandscape.webp";
+import '../styles/layout/Landing.scss'
 import CreateAccount from "../components/CreateAccount.tsx";
 import React from "react";
 
@@ -11,11 +11,12 @@ const Landing = () => {
             <Header />
             <div className="relative w-full h-[85vh] overflow-hidden">
                 {creatingAccount ?
-                    <CreateAccount setCreatingAccount={setCreatingAccount} />
+                    <CreateAccount setCreatingAccount={setCreatingAccount}/>
                     :
-                    <LoginForm setCreatingAccount={setCreatingAccount} />
+                    <LoginForm setCreatingAccount={setCreatingAccount}/>
                 }
-                <div style={{backgroundImage:`url(${apocalypticLandscape})`}} className='absolute top-0 left-0 right-0 bottom-0 bg-cover bg-center z-0' />
+                <div className='landing-bg'/>
+
             </div>
         </div>
     )
