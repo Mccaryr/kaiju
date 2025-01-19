@@ -29,11 +29,12 @@ export const apiSlice = createApi({
             }
         }),
         getTasks: builder.query({
-            query: ({searchTerm = '', taskType = '', projectId = ''}) => {
+            query: ({searchTerm = '', taskType = '', projectId = '', assignee = ''}) => {
                 const params = new URLSearchParams();
                 if (searchTerm) params.append('searchTerm', searchTerm);
                 if (taskType && taskType !== "All") params.append('type', taskType);
                 if(projectId) params.append('projectId', projectId)
+                if(assignee) params.append('assignee', assignee)
 
                 return `tasks?${params.toString()}`;
             },
@@ -49,7 +50,10 @@ export const apiSlice = createApi({
             query: (task) => ({
                 url: `task`,
                 method: 'POST',
-                body: task
+                body: task,
+                params: {
+                    recipient: task.assignee
+                },
             })
         }),
         deleteTask: builder.mutation({

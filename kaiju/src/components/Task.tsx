@@ -20,7 +20,7 @@ const Task: React.FC<TaskProps> = ({task}) => {
                 <p className='sm:text-base text-sm p-3'>{task.type}</p>
                 <div className='sm:text-base text-sm flex p-3 gap-2'>
                     <p>{task.points}</p>
-                    <p>{task.assignee?.match(/^[^@]+/)?.[0] || 'Unassigned'}</p>
+                    <p>{task.assignee?.match(/^[^@]+/)?.[0].slice(0,12) || 'Unassigned'}</p>
                 </div>
             </div>
         </div>

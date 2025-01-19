@@ -35,7 +35,6 @@ const LoginForm = ({setCreatingAccount}: {setCreatingAccount: (creatingAccount: 
 
         try {
           const result = await login(values)
-            console.log("result: ", result)
             if (result.data?.jwt) {
                 dispatch(setIsLoggedIn(result.data.jwt))
             }

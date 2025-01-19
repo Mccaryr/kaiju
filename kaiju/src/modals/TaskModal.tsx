@@ -10,6 +10,7 @@ import '../styles/components/Button.scss'
 import '../styles/components/Modal.scss'
 import CustomSelect from "../components/CustomSelect.tsx";
 import CustomInput from "../components/CustomInput.tsx";
+import {useState} from "react";
 
 interface TaskModalProps {
     modalType?: string,
@@ -32,7 +33,8 @@ type TaskFormValues = {
 const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) => {
     const [createTask] = useCreateTaskMutation()
     const [updateTask] = useUpdateTaskMutation();
-    const [deleteTask] = useDeleteTaskMutation()
+    const [deleteTask] = useDeleteTaskMutation();
+    const [error, setError] = useState<Error>()
 
 
     const dispatch = useDispatch();
@@ -46,9 +48,9 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
 
     // @ts-ignore
     const assigneeOptions: OptionsType<Option> = [
-        {label: "Rob@gmail.com", value: "1"},
-        {label: "Liam@yahoo.com", value: "2"},
-        {label: "Donald@sloth.com", value: "3"},
+        {label: "Robert.tyler.mccary", value: "Robert.tyler.mccary@gmail.com"},
+        {label: "Erinhealey07", value: "erinhealey07@yahoo.com"},
+        {label: "Don", value: "Donald@sloth.com"},
     ]
 
     // @ts-ignore
@@ -76,7 +78,7 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
             description: values.description,
             type:values.type.value,
             status: values.status.value,
-            assignee: values.assignee.label,
+            assignee: values.assignee.value,
             points: values.points,
             id: modalProps.id,
             projectId: modalProps.projectId
@@ -98,7 +100,7 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
                 refetch()
                 dispatch(closeModal());
             })
-                .catch((error: Error) => console.log(error))
+                .catch((error: Error) => setError(error))
         }
     }
 
@@ -162,6 +164,9 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
                         </div>
                     </div>
                     <div className='flex px-2 gap-5'>
+                        {error &&
+                            <div className='error-msg'>{error.message}</div>
+                        }
                         <button type="submit" disabled={isSubmitting} className='btn'>
                             {modalType === "CREATE_TASK" ? "Submit" : "Update"}
                         </button>

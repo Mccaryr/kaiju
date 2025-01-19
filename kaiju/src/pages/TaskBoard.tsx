@@ -20,11 +20,12 @@ const TaskBoard = () => {
     // @ts-ignore
     const searchTerm = useSelector((state: RootState) => state.filter.searchTerm)
     const taskType = useSelector((state: RootState) => state.filter.taskType)
+    const assignee = useSelector((state: RootState) => state.filter.assignee)
     const [dropdownActive, setDropdownActive] = useState<boolean>(false)
     const [project, setProject] = useState<Option | null>(null)
     const [projectOptions, setProjectOptions] = useState<Option[]>();
     const { data: projectsData} = useGetProjectsQuery({})
-    const { data: tasksData, refetch: refetchTasks} = useGetTasksQuery(project?.value ? {searchTerm, taskType, projectId: project.value || ""}
+    const { data: tasksData, refetch: refetchTasks} = useGetTasksQuery(project?.value ? {searchTerm, taskType, assignee, projectId: project.value || ""}
     : skipToken)
 
 
@@ -33,7 +34,7 @@ const TaskBoard = () => {
          refetchTasks()
      }, 1000)
         return () => {clearTimeout(timerId)}
-    }, [searchTerm, taskType])
+    }, [searchTerm, taskType, assignee])
 
     useEffect(() => {
         if (projectsData) {
