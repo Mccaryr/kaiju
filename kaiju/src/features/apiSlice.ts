@@ -34,7 +34,7 @@ export const apiSlice = createApi({
                 if (searchTerm) params.append('searchTerm', searchTerm);
                 if (taskType && taskType !== "All") params.append('type', taskType);
                 if(projectId) params.append('projectId', projectId)
-                if(assignee) params.append('assignee', assignee)
+                if(assignee && assignee !== "All") params.append('assignee', assignee)
 
                 return `tasks?${params.toString()}`;
             },

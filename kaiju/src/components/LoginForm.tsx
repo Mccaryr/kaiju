@@ -22,7 +22,7 @@ const validationSchema = Yup.object ({
 
 
 const LoginForm = ({setCreatingAccount}: {setCreatingAccount: (creatingAccount: boolean) => void}) => {
-    const initialValues: LoginFormValues = { email: 'guest@email.com', password: 'password' };
+    const initialValues: LoginFormValues = { email: 'robert.tyler.mccary@gmail.com', password: 'eJueSt4|t0;8' };
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState<string>();
     const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
