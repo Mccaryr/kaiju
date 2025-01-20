@@ -7,3 +7,11 @@ Recently new features are Email notifications when creating a task. A Lambda fun
 Future features will include commments, and analytics.
 
 Project is hosted at https://kaiju-mke1.onrender.com/
+
+##External Services used: 
+  AWS Lamda - notifications
+  Sendgrid/Twilio - notification handling
+  GoDaddy - email hosting
+  Render - website hosting
+  Supabase - DB storage
+  
