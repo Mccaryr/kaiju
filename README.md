@@ -2,6 +2,8 @@ Hi I developed Kaiju as a task manager to keep productive. With Kaiju you can cr
 
 Current tech stack includes Typescript, Redux Toolkit, Java Spring, Postgres.
 
-Future features will include notifications, commments, and analytics.
+Recently new features are Email notifications when creating a task. A Lambda function fires off a notfication that sends an email via SendGrid.
+
+Future features will include commments, and analytics.
 
 Project is hosted at https://kaiju-mke1.onrender.com/
