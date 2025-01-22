@@ -10,11 +10,11 @@ const CommentList = ({taskId}: {taskId: string}) => {
     // We show replies only of parent threadId
     const [visibleThreadId, setShowVisibleThreadId] = useState<number>(0)
 
-    const onKeyDown = (e) => {
+    const onKeyDown = (e: any) => {
         if(e.key === 'Enter' && e.key !== 'shiftKey') {
             console.log("Enter was pressed!")
             e.preventDefault();
-            //createComment(comment)
+            createComment(comment)
             setComment('')
         }
     }
