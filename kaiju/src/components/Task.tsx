@@ -11,7 +11,10 @@ const Task: React.FC<TaskProps> = ({task}) => {
 
     return (
         <div className='task-container border-2 w-[95%] rounded-lg shadow-lg flex flex-col items-center'
-             onClick={() => openModal({modalType: 'VIEW_TASK'})}
+             onClick={() => {
+                 openModal({modalType: 'VIEW_TASK'})
+                 document.body.classList.add('modal-open')
+             }}
         >
             <div className='font-bold text-white sm:p-3 p-1'>
                 <h3 className='sm:text-base text-sm'>{task.title}</h3>

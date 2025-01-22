@@ -11,6 +11,7 @@ import '../styles/components/Modal.scss'
 import CustomSelect from "../components/CustomSelect.tsx";
 import CustomInput from "../components/CustomInput.tsx";
 import {useState} from "react";
+import CommentList from "../components/Comments/CommentList.tsx";
 
 interface TaskModalProps {
     modalType?: string,
@@ -35,6 +36,7 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
     const [updateTask] = useUpdateTaskMutation();
     const [deleteTask] = useDeleteTaskMutation();
     const [error, setError] = useState<Error>()
+    const [showComments, setShowComments] = useState<boolean>(false)
 
 
     const dispatch = useDispatch();
@@ -163,7 +165,18 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
                             <ErrorMessage name="points" component="div" className="text-red-500"/>
                         </div>
                     </div>
-                    <div className='flex px-2 gap-5'>
+
+                    {modalType === "UPDATE_TASK" &&
+                        <div className="w-full flex justify-center">
+                            <button type="button" className="comments-btn w-3/4"
+                                    onClick={() => setShowComments(!showComments)}>View comments
+                            </button>
+                        </div>
+                    }
+
+                    {showComments && <CommentList taskId={modalProps.id} />}
+
+                    <div className='flex px-2 gap-[8rem] pb-10'>
                         {error &&
                             <div className='error-msg'>{error.message}</div>
                         }
@@ -171,7 +184,7 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
                             {modalType === "CREATE_TASK" ? "Submit" : "Update"}
                         </button>
                         {modalType === "UPDATE_TASK" &&
-                            <button type="button" disabled={isSubmitting} className='bg-red-700 hover:scale-125' onClick={() => handleDeleteTask()}>
+                            <button type="button" disabled={isSubmitting} className='bg-red-700 hover:scale-110' onClick={() => handleDeleteTask()}>
                                 Delete
                             </button>
                         }

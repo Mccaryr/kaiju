@@ -62,6 +62,31 @@ export const apiSlice = createApi({
                 method: 'DELETE'
             })
         }),
+        getComments: builder.query({
+            query: (taskId) => {
+                return `tasks/${taskId}/comments`
+            }
+        }),
+        createComment: builder.mutation({
+            query: (comment) => ({
+                url:`comments`,
+                method:'POST',
+                body: comment
+            })
+        }),
+        updateComment: builder.mutation({
+            query: (comment) => ({
+                url:`comments`,
+                method:'PUT',
+                body: comment
+            })
+        }),
+        deleteComment: builder.mutation({
+            query: (commentId) => ({
+                url: `comments/${commentId}`,
+                method: 'DELETE'
+            })
+        })
     }),
 });
 
@@ -72,5 +97,9 @@ export const {
     useGetTasksQuery,
     useUpdateTaskMutation,
     useCreateTaskMutation,
-    useDeleteTaskMutation
+    useDeleteTaskMutation,
+    useGetCommentsQuery,
+    useCreateCommentMutation,
+    useUpdateCommentMutation,
+    useDeleteCommentMutation
 } = apiSlice;

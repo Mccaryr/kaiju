@@ -37,6 +37,10 @@ body {
   font-size:100%;
 }
 
+body.modal-open {
+  overflow: hidden;
+}
+
 
 button {
   border-radius: 8px;

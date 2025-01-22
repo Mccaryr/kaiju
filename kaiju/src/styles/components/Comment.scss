@@ -1,0 +1,34 @@
+@import '../shared/_variables';
+.comment-btn-crud {
+  border: none;
+  background: transparent;
+  color:white;
+  font-size:12px;
+}
+
+.comment-btn-crud:hover {
+  color: $secondary-accent-color;
+}
+
+
+.fill-btn {
+  padding-top:10px;
+  width: 140px;
+  height: 40px;
+  border: 1px solid white;
+  outline: none;
+  color: #fff;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: 0.6s;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fill-in-effect:hover {
+  box-shadow: inset 0 0 0 2em adjust-hue($accent-color, 0%);
+  border: 1px solid white;
+  outline:none;
+}
