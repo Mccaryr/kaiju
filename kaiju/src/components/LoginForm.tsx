@@ -1,10 +1,13 @@
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from 'yup';
 import '../styles/components/LoginForm.scss'
-import {useAuth} from "./AuthProvider.tsx";
 import Button from "./Button.tsx";
 import {useState} from "react";
 import Loader from "./Loader.tsx";
+import {useLoginMutation} from "../features/apiSlice.ts";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../app/store.ts";
+import {setIsLoggedIn} from "../features/authSlice.ts";
 
 type LoginFormValues = {
     email: string;
@@ -19,31 +22,38 @@ const validationSchema = Yup.object ({
 
 
 const LoginForm = ({setCreatingAccount}: {setCreatingAccount: (creatingAccount: boolean) => void}) => {
-    const initialValues: LoginFormValues = { email: 'guest@email.com', password: 'password' };
-    const {login, loggedIn} = useAuth()
+    const initialValues: LoginFormValues = { email: 'robert.tyler.mccary@gmail.com', password: 'eJueSt4|t0;8' };
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [error, setError] = useState<string>();
+    const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+    const [login] = useLoginMutation()
+    const dispatch = useDispatch();
 
 
     const handleSubmit = async(values: LoginFormValues) => {
         setIsSubmitting(true);
 
         try {
-            login(values)
-        } catch(e) {
-            console.log(e)
+          const result = await login(values)
+            if (result.data?.jwt) {
+                dispatch(setIsLoggedIn(result.data.jwt))
+            }
+            if(result.error) {
+                setError("Invalid username/password")
+            }
+        } catch(e: any) {
+
         } finally {
-            setTimeout(() => {
-                setIsSubmitting(false);
-            }, 5000)
+            setIsSubmitting(false);
         }
 
     }
 
 
     return (
-        <div className="login-container relative z-10 py-10">
-            <div className="login-form sm:w-1/2">
-                {!loggedIn && isSubmitting ? (
+        <div className="login-container relative z-10 h-[85vh]">
+            <div className="login-form sm:w-[40%]">
+                {!isLoggedIn && isSubmitting ? (
                     <>
                         <div className='text-[0.8rem] sm:text-[1rem]'>
                             <p>Please be patient on initial authentication call. </p>
@@ -64,13 +74,14 @@ const LoginForm = ({setCreatingAccount}: {setCreatingAccount: (creatingAccount: 
                         validatationSchema={validationSchema}
                         onSubmit={handleSubmit}
                         >
-                            {({}) => (
+                            {() => (
                                 <Form>
                                     <div className='form-group'>
                                         <Field type="email" name="email" placeholder="Email" className='input-field'/>
                                         <ErrorMessage name="email" component="div" className='error-msg'/>
                                         <Field type="password" name="password" placeholder="Password" className='input-field'/>
                                         <ErrorMessage name="password" component="div" className='error-msg'/>
+                                        {error && <div className="error-msg">{error}</div>}
                                         <Button text={"Submit"} disabled={isSubmitting} type={"submit"}/>
                                     </div>
                                 </Form>

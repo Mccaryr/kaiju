@@ -1,22 +1,26 @@
 import Landing from "./pages/Landing.tsx";
 import TaskBoard from "./pages/TaskBoard.tsx";
-import {useAuth} from "./components/AuthProvider.tsx";
 import {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "./app/store.ts";
+import {setIsLoggedIn} from "./features/authSlice.ts";
 
 
 function App() {
- const {loggedIn, setLoggedIn } = useAuth();
+ const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+ const dispatch = useDispatch();
+
 
     useEffect(() => {
         const storedToken = localStorage.getItem('token');
         if (storedToken) {
-            setLoggedIn(true)
+            dispatch(setIsLoggedIn());
         }
     }, []);
 
   return (
     <div>
-        {!loggedIn ? <Landing /> : <TaskBoard />}
+        {!isLoggedIn ? <Landing /> : <TaskBoard />}
     </div>
   )
 }

@@ -8,6 +8,7 @@ import CustomSelect from "./CustomSelect.tsx";
 
 const TaskFilter = () => {
     const [type, setType] = useState(null)
+    const [assignee, setAssignee] = useState(null)
     const dispatch = useDispatch();
 
 
@@ -18,17 +19,32 @@ const TaskFilter = () => {
         {label: "All", value: "All"},
     ]
 
-    const handleChange = (option: any) => {
+    const assigneeOptions: Option[] = [
+        {label: "Rob.mccary", value: "robert.tyler.mccary@gmail.com"},
+        {label: "erinhealey", value: "erinhealey07@yahoo.com"},
+        {label: "All", value: "All"}
+    ]
+
+    const handleTypeChange = (option: any) => {
         setType(option)
         // @ts-ignore
         dispatch(setFilter({taskType: option.value}))
+    }
+
+    const handleAssigneeChange = (option: any) => {
+        setAssignee(option)
+        // @ts-ignore
+        dispatch(setFilter({assignee: option.value}))
     }
 
 
     return (
         <div className='mb-2 p-8 flex gap-5 align-items-center flex-col sm:flex-row'>
             <SearchBar />
-            <CustomSelect value={type} options={typeOptions} label={'Task Type'} onChange={handleChange} />
+            <div className='flex flex-row gap-4 sm:pt-0 align-items-center pt-4'>
+                <CustomSelect value={type} options={typeOptions} label={'Type'} onChange={handleTypeChange} />
+                <CustomSelect value={assignee} options={assigneeOptions} label={'Assignee'} onChange={handleAssigneeChange} />
+            </div>
         </div>
     )
 }

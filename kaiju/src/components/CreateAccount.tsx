@@ -18,8 +18,8 @@ const CreateAccount = ({setCreatingAccount}: {setCreatingAccount: (creatingAccou
     }
 
     return (
-        <div className="login-container relative z-10 py-10">
-            <div className="login-form sm:w-1/2">
+        <div className="login-container relative z-10 h-[85vh]">
+            <div className="login-form sm:w-[40%]">
                 <h5>Create Account</h5>
                 <Formik
                     initialValues={{
@@ -34,6 +34,7 @@ const CreateAccount = ({setCreatingAccount}: {setCreatingAccount: (creatingAccou
                                     name={"email"}
                                     placeholder={"Email"}
                                     className={"input-field"}
+                                    aria-label={"Email"}
                                 />
                                 <ErrorMessage name="email" component="div" className='error-msg'/>
                                 <Field
@@ -41,10 +42,11 @@ const CreateAccount = ({setCreatingAccount}: {setCreatingAccount: (creatingAccou
                                     name={"password"}
                                     placeholder={"Password"}
                                     className={"input-field"}
+                                    aria-label={"Password"}
                                 />
                                 <ErrorMessage name="password" component="div" className='error-msg'/>
                             </div>
-                            <div className="flex flex-row gap-[5vw]">
+                            <div className="flex flex-row gap-[5vw] mt-8">
                                 <Button type="button" text="Back" action={() => setCreatingAccount(false)}/>
                                 <Button type={"submit"} text="Create Account" disabled={isSubmitting}/>
                             </div>

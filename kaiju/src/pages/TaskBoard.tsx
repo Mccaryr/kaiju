@@ -6,26 +6,26 @@ import Modal from "../modals/Modal.tsx";
 import {useDispatch, useSelector} from "react-redux";
 import {openModal} from "../features/modalSlice.ts";
 import {RootState} from "../app/store.ts";
-import {useAuth} from "../components/AuthProvider.tsx";
 import {useGetProjectsQuery, useGetTasksQuery} from "../features/apiSlice.ts";
 import {useEffect, useState} from "react";
 import {skipToken} from "@reduxjs/toolkit/query";
 import {Option} from "../types/option.ts";
 import CustomSelect from "../components/CustomSelect.tsx";
+import {logout} from "../features/authSlice.ts";
 
 
 const TaskBoard = () => {
     const dispatch = useDispatch();
     const {isVisible} = useSelector((state: RootState) => state.modal);
-    const {logout} = useAuth()
     // @ts-ignore
     const searchTerm = useSelector((state: RootState) => state.filter.searchTerm)
     const taskType = useSelector((state: RootState) => state.filter.taskType)
+    const assignee = useSelector((state: RootState) => state.filter.assignee)
     const [dropdownActive, setDropdownActive] = useState<boolean>(false)
     const [project, setProject] = useState<Option | null>(null)
     const [projectOptions, setProjectOptions] = useState<Option[]>();
     const { data: projectsData} = useGetProjectsQuery({})
-    const { data: tasksData, refetch: refetchTasks} = useGetTasksQuery(project?.value ? {searchTerm, taskType, projectId: project.value || ""}
+    const { data: tasksData, refetch: refetchTasks} = useGetTasksQuery(project?.value ? {searchTerm, taskType, assignee, projectId: project.value || ""}
     : skipToken)
 
 
@@ -34,7 +34,7 @@ const TaskBoard = () => {
          refetchTasks()
      }, 1000)
         return () => {clearTimeout(timerId)}
-    }, [searchTerm, taskType])
+    }, [searchTerm, taskType, assignee])
 
     useEffect(() => {
         if (projectsData) {
@@ -62,14 +62,14 @@ const TaskBoard = () => {
                                 <a href="#" onClick={() => dispatch(openModal({modalType: "CREATE_TASK", modalProps: {projectId: project?.value} }))}>Create
                                     Task</a>
                                 <a href="#" onClick={() => alert("Coming soon")}>Complete Sprint</a>
-                                <a href="/" onClick={() => logout()}>Logout</a>
+                                <a href="/" onClick={() => dispatch(logout())}>Logout</a>
                             </div>
                         )}
                     </div>
                 </div>
             </div>
             <TaskFilter/>
-            <TaskList tasksData={tasksData}/>
+            <TaskList tasksData={tasksData} refetchTasks={refetchTasks} />
             {isVisible && (
                 <div className='w-full h-full flex items-center justify-center z-10 fixed top-0 left-0 right-0 bottom-0'>
                     <div className="absolute w-full h-full" style={{backgroundColor: 'rgba(0, 0, 0, 0.75)'}}/>

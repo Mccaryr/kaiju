@@ -16,11 +16,16 @@
     background-color: #213547;
     color: white;
     padding: 2rem;
-    border-radius: 0.2rem;
+    border-radius: 1rem;
     gap: 2rem;
     justify-content: center;
     align-items: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border: 2px solid transparent;
+    background-clip: padding-box, border-box;
+    background-origin: border-box;
+    background-image: linear-gradient(#213547, #213547),
+    -webkit-linear-gradient(-90.13deg, $secondary-accent-color 1.9%, $accent-color 97.5%);
   }
 
   .form-group {
@@ -50,6 +55,7 @@
     .error-msg {
       color: red;
       font-size: 0.875rem;
+      margin-top:-25px;
     }
 
     .submit-btn {
@@ -64,7 +70,7 @@
       transition: border-color 0.3s ease, color 0.3s ease;
 
       &:hover {
-        border-image: linear-gradient(45deg, #00FF00, #5810ed) 1;
+        border-image: linear-gradient(45deg, $secondary-accent-color, $accent-color) 1;
         animation: animateBorder 2s linear infinite;
       }
 

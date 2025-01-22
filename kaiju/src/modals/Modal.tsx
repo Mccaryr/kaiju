@@ -12,10 +12,13 @@ const Modal = ({ refetch }: { refetch: () => void }) => {
     if (!isVisible) { return null}
 
     return (
-        <div className='sm:h-[95vh] sm:w-[90vw] z-20 sm:rounded-2xl overflow-y-auto modal'>
+        <div className='sm:h-[100vh] sm:w-[100vw] z-20 overflow-y-auto modal'>
             <div className='top-0 right-0 relative'>
                 <button
-                    onClick={() => dispatch(closeModal())}
+                    onClick={() => {
+                        dispatch(closeModal())
+                        document.body.classList.remove('modal-open');
+                    }}
                     className='flex items-center justify-center absolute top-2 right-2 bg-red-500 text-white rounded-full w-8 h-8'
                 >X
                 </button>

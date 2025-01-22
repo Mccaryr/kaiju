@@ -1,8 +1,8 @@
 import Header from "../components/Header.tsx";
 import LoginForm from "../components/LoginForm.tsx";
-import apocalypticLandscape from "../assets/apocalypticLandscape.webp";
 import CreateAccount from "../components/CreateAccount.tsx";
 import React from "react";
+import video from "../assets/landing-video.mp4"
 
 const Landing = () => {
     const [creatingAccount, setCreatingAccount] = React.useState<boolean>(false)
@@ -11,11 +11,15 @@ const Landing = () => {
             <Header />
             <div className="relative w-full h-[85vh] overflow-hidden">
                 {creatingAccount ?
-                    <CreateAccount setCreatingAccount={setCreatingAccount} />
+                    <CreateAccount setCreatingAccount={setCreatingAccount}/>
                     :
-                    <LoginForm setCreatingAccount={setCreatingAccount} />
+                    <LoginForm setCreatingAccount={setCreatingAccount}/>
                 }
-                <div style={{backgroundImage:`url(${apocalypticLandscape})`}} className='absolute top-0 left-0 right-0 bottom-0 bg-cover bg-center z-0' />
+                <video autoPlay loop muted className="absolute top-0 left-0 w-full h-full object-cover">
+                    <source src={video} type={"video/mp4"} />
+                    Your browser does not support the video
+                </video>
+
             </div>
         </div>
     )

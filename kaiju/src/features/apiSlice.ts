@@ -15,19 +15,26 @@ export const apiSlice = createApi({
         }
     }),
 
-
     endpoints: (builder) => ({
+        login: builder.mutation({
+            query: (userData) => ({
+                url: "/auth/authenticate",
+                method: "POST",
+                body: userData,
+            }),
+        }),
         getProjects: builder.query({
             query: () => {
                 return 'projects'
             }
         }),
         getTasks: builder.query({
-            query: ({searchTerm = '', taskType = '', projectId = ''}) => {
+            query: ({searchTerm = '', taskType = '', projectId = '', assignee = ''}) => {
                 const params = new URLSearchParams();
                 if (searchTerm) params.append('searchTerm', searchTerm);
                 if (taskType && taskType !== "All") params.append('type', taskType);
                 if(projectId) params.append('projectId', projectId)
+                if(assignee && assignee !== "All") params.append('assignee', assignee)
 
                 return `tasks?${params.toString()}`;
             },
@@ -43,7 +50,10 @@ export const apiSlice = createApi({
             query: (task) => ({
                 url: `task`,
                 method: 'POST',
-                body: task
+                body: task,
+                params: {
+                    recipient: task.assignee
+                },
             })
         }),
         deleteTask: builder.mutation({
@@ -52,14 +62,44 @@ export const apiSlice = createApi({
                 method: 'DELETE'
             })
         }),
-    })
+        getComments: builder.query({
+            query: (taskId) => {
+                return `tasks/${taskId}/comments`
+            }
+        }),
+        createComment: builder.mutation({
+            query: (comment) => ({
+                url:`comments`,
+                method:'POST',
+                body: comment
+            })
+        }),
+        updateComment: builder.mutation({
+            query: (comment) => ({
+                url:`comments`,
+                method:'PUT',
+                body: comment
+            })
+        }),
+        deleteComment: builder.mutation({
+            query: (commentId) => ({
+                url: `comments/${commentId}`,
+                method: 'DELETE'
+            })
+        })
+    }),
 });
 
 
 export const {
+    useLoginMutation,
     useGetProjectsQuery,
     useGetTasksQuery,
     useUpdateTaskMutation,
     useCreateTaskMutation,
-    useDeleteTaskMutation
+    useDeleteTaskMutation,
+    useGetCommentsQuery,
+    useCreateCommentMutation,
+    useUpdateCommentMutation,
+    useDeleteCommentMutation
 } = apiSlice;

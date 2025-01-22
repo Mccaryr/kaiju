@@ -14,6 +14,7 @@ type TaskBucket = {
 
 type TasksDataProps = {
     tasksData: TaskType[];
+    refetchTasks: () => void;
 }
 
 const initialTasks: TaskBucket = {
@@ -24,7 +25,7 @@ const initialTasks: TaskBucket = {
     "COMPLETED": []
 };
 
-const TaskList: React.FC<TasksDataProps> = ({tasksData}) => {
+const TaskList: React.FC<TasksDataProps> = ({tasksData, refetchTasks}) => {
     // @ts-ignore
     const [updateTask, { isSuccess, error: updateError }] = useUpdateTaskMutation();
     const [tasks, setTasks] = useState(initialTasks);
@@ -52,9 +53,9 @@ const TaskList: React.FC<TasksDataProps> = ({tasksData}) => {
         taskToUpdate.status = destBucket;
         try {
             await updateTask(taskToUpdate)
+            refetchTasks()
             return true
         } catch(e) {
-            console.log("Failed to update: ", e)
             return false
         }
 
