@@ -10,7 +10,7 @@ import '../styles/components/Button.scss'
 import '../styles/components/Modal.scss'
 import CustomSelect from "../components/CustomSelect.tsx";
 import CustomInput from "../components/CustomInput.tsx";
-import {useState} from "react";
+import {useRef, useState} from "react";
 import CommentList from "../components/Comments/CommentList.tsx";
 
 interface TaskModalProps {
@@ -37,6 +37,7 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
     const [deleteTask] = useDeleteTaskMutation();
     const [error, setError] = useState<Error>()
     const [showComments, setShowComments] = useState<boolean>(false)
+    const commentsRef = useRef<HTMLDivElement | null>(null)
 
 
     const dispatch = useDispatch();
@@ -172,7 +173,7 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
                         </div>
                     </div>
 
-                    <div className='flex px-2 gap-[8rem] pb-10'>
+                    <div className='flex px-2 gap-[8rem] pb-4'>
                         {error &&
                             <div className='error-msg'>{error.message}</div>
                         }
@@ -190,12 +191,21 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
                     {modalType === "UPDATE_TASK" &&
                         <div className="w-full flex justify-center">
                             <button type="button" className="comments-btn w-3/4"
-                                    onClick={() => setShowComments(!showComments)}>View comments
+                                    onClick={() => {
+                                        setShowComments(!showComments)
+                                        if (!showComments) {
+                                            setTimeout(() => {
+                                                if (commentsRef.current) {
+                                                    commentsRef.current.scrollIntoView({behavior: "smooth"});
+                                                }
+                                            }, 0);
+                                        }
+                                    }}>View comments
                             </button>
                         </div>
                     }
 
-                    {showComments && <CommentList taskId={modalProps.id}/>}
+                    {showComments && <CommentList commentsRef={commentsRef} taskId={modalProps.id}/>}
                 </Form>
             )}
         </Formik>

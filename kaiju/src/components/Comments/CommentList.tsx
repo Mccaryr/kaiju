@@ -5,7 +5,11 @@ import {useState} from "react";
 import {useSelector} from "react-redux";
 import {RootState} from "../../app/store.ts";
 
-const CommentList = ({taskId}: {taskId: string}) => {
+type CommentListProps = {
+    commentsRef: React.MutableRefObject<HTMLDivElement | null>;
+    taskId: string;
+}
+const CommentList:React.FC<CommentListProps> = ({commentsRef, taskId}) => {
     const [createComment] = useCreateCommentMutation();
     const [comment, setComment] = useState<string>("");
     const {data: commentData, refetch: refetchComments} = useGetCommentsQuery(taskId, {
@@ -15,7 +19,8 @@ const CommentList = ({taskId}: {taskId: string}) => {
     const [visibleThreadId, setShowVisibleThreadId] = useState<number>(0)
     const user = useSelector((state: RootState) => state.auth.user)
 
-    const onKeyDown = (e: any) => {
+
+    const onKeyDown = async (e: any) => {
         if(e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
 
@@ -26,9 +31,13 @@ const CommentList = ({taskId}: {taskId: string}) => {
                 authorId: user.userId,
                 taskId: taskId,
             }
-            createComment(submissionObj)
-            setComment('')
-            refetchComments()
+            try {
+                await createComment(submissionObj).unwrap()
+                setComment('')
+                refetchComments()
+            } catch(error) {
+                console.error("Failed to update the comment:", error);
+            }
         }
     }
 
@@ -40,8 +49,13 @@ const CommentList = ({taskId}: {taskId: string}) => {
         }
     }
 
+    const threadReplyMap = commentData?.reduce((acc: Record<string, boolean>, comment: any) => {
+        if(comment.threadId) acc[comment.threadId] = true;
+        return acc;
+    }, {})
+
     return (
-        <div className="w-3/4 flex flex-col gap-5">
+        <div className="w-3/4 flex flex-col gap-5 mb-4" ref={commentsRef}>
             <div className="flex flex-col">
                 <textarea
                     className="p-4 bg-gray-800 h-[100px]"
@@ -51,7 +65,7 @@ const CommentList = ({taskId}: {taskId: string}) => {
                     value={comment}
                 />
             </div>
-            {commentData && commentData.map((commentObj: any) => {
+            {commentData && commentData.length > 0 && commentData.map((commentObj: any) => {
                 return <Comment
                     comment={commentObj}
                     key={commentObj.id}
@@ -59,6 +73,7 @@ const CommentList = ({taskId}: {taskId: string}) => {
                     toggleReplies={toggleReplies}
                     visibleThreadId={visibleThreadId}
                     refetchComments={refetchComments}
+                    hasReplies={!!threadReplyMap[commentObj.id]}
                 />
             })}
         </div>
