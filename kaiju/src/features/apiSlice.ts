@@ -76,7 +76,7 @@ export const apiSlice = createApi({
         }),
         updateComment: builder.mutation({
             query: (comment) => ({
-                url:`comments`,
+                url:`comments/${comment.id}`,
                 method:'PUT',
                 body: comment
             })

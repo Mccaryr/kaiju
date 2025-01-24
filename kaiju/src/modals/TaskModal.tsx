@@ -133,37 +133,58 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
             {({values, setFieldValue, handleSubmit, isSubmitting}) => (
                 <Form className='flex flex-col items-center gap-[2rem]' onSubmit={handleSubmit}>
                     <div className='flex flex-col items-center gap-2 pt-10'>
-                        <CustomInput type={"text"} name={"title"} label={`${modalType === "CREATE_TASK" ? "Create Task" : "Update Task"}`} value={values.title} />
-                        <ErrorMessage name="title" component="div" className="text-red-500" />
+                        <CustomInput type={"text"} name={"title"}
+                                     label={`${modalType === "CREATE_TASK" ? "Create Task" : "Update Task"}`}
+                                     value={values.title}/>
+                        <ErrorMessage name="title" component="div" className="text-red-500"/>
                     </div>
                     <div className='flex flex-col items-center gap-2 w-full'>
                         <label className="w-[70%] text-left">Task Description</label>
-                       <Field
-                           component={TextEditor}
-                           name="description"
-                           value={values.description}
-                           onChange={(value: string) => setFieldValue("description", value)}
-                       />
+                        <Field
+                            component={TextEditor}
+                            name="description"
+                            value={values.description}
+                            onChange={(value: string) => setFieldValue("description", value)}
+                        />
 
-                        <ErrorMessage name="description" component="div" className="text-red-500" />
+                        <ErrorMessage name="description" component="div" className="text-red-500"/>
                     </div>
                     <div className='grid grid-cols-2 items-center sm:w-3/4 w-full justify-evenly px-4 sm:py-2 gap-8'>
                         <div>
-                            <CustomSelect label={'Type'} options={typeOptions} onChange={(option) => setFieldValue("type", option)} value={values.type}/>
+                            <CustomSelect label={'Type'} options={typeOptions}
+                                          onChange={(option) => setFieldValue("type", option)} value={values.type}/>
                             <ErrorMessage name="type" component="div" className="text-red-500"/>
                         </div>
                         <div className='flex justify-end'>
-                            <CustomSelect label={'Status'} options={statusOptions} onChange={(option) => setFieldValue("status", option)} value={values.status}/>
+                            <CustomSelect label={'Status'} options={statusOptions}
+                                          onChange={(option) => setFieldValue("status", option)} value={values.status}/>
                             <ErrorMessage name="type" component="div" className="text-red-500"/>
                         </div>
                         <div>
-                            <CustomSelect label={'Assigned To'} options={assigneeOptions} onChange={(option) => setFieldValue("assignee", option)} value={values.assignee}/>
+                            <CustomSelect label={'Assigned To'} options={assigneeOptions}
+                                          onChange={(option) => setFieldValue("assignee", option)}
+                                          value={values.assignee}/>
                             <ErrorMessage name="assignee" component="div" className="text-red-500"/>
                         </div>
                         <div className='flex justify-end'>
-                            <CustomInput label={"Points"} type={"number"} name={"points"} value={values.points} />
+                            <CustomInput label={"Points"} type={"number"} name={"points"} value={values.points}/>
                             <ErrorMessage name="points" component="div" className="text-red-500"/>
                         </div>
+                    </div>
+
+                    <div className='flex px-2 gap-[8rem] pb-10'>
+                        {error &&
+                            <div className='error-msg'>{error.message}</div>
+                        }
+                        <button type="submit" disabled={isSubmitting} className='btn'>
+                            {modalType === "CREATE_TASK" ? "Submit" : "Update"}
+                        </button>
+                        {modalType === "UPDATE_TASK" &&
+                            <button type="button" disabled={isSubmitting} className='bg-red-700 hover:scale-110'
+                                    onClick={() => handleDeleteTask()}>
+                                Delete
+                            </button>
+                        }
                     </div>
 
                     {modalType === "UPDATE_TASK" &&
@@ -174,21 +195,7 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
                         </div>
                     }
 
-                    {showComments && <CommentList taskId={modalProps.id} />}
-
-                    <div className='flex px-2 gap-[8rem] pb-10'>
-                        {error &&
-                            <div className='error-msg'>{error.message}</div>
-                        }
-                        <button type="submit" disabled={isSubmitting} className='btn'>
-                            {modalType === "CREATE_TASK" ? "Submit" : "Update"}
-                        </button>
-                        {modalType === "UPDATE_TASK" &&
-                            <button type="button" disabled={isSubmitting} className='bg-red-700 hover:scale-110' onClick={() => handleDeleteTask()}>
-                                Delete
-                            </button>
-                        }
-                    </div>
+                    {showComments && <CommentList taskId={modalProps.id}/>}
                 </Form>
             )}
         </Formik>

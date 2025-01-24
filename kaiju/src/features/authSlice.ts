@@ -2,14 +2,23 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 const initialState = {
     isLoggedIn: false,
+    user: {
+        username: "",
+        userId: null,
+        firstName: "",
+        lastName: "",
+    }
 }
 export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        setIsLoggedIn: (state, action: PayloadAction<string | void>) => {
+        setIsLoggedIn: (state, action: PayloadAction<any>) => {
             if(action.payload) {
-                localStorage.setItem("token", action.payload);
+                console.log("action.payload", action.payload)
+                const {user, jwt} = action.payload
+                localStorage.setItem("token", jwt);
+                state.user = {username: user.username, userId: user.userId, firstName: user.firstName, lastName: user.lastName}
             }
             state.isLoggedIn = true
         },

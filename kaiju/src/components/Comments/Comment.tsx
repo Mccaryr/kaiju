@@ -1,5 +1,5 @@
 import '../../styles/components/Comment.scss'
-import {useDeleteCommentMutation} from "../../features/apiSlice.ts";
+import {useDeleteCommentMutation, useUpdateCommentMutation} from "../../features/apiSlice.ts";
 import moment from "moment";
 import {useState} from "react";
 
@@ -8,12 +8,48 @@ type CommentProps = {
     showReplies: boolean;
     toggleReplies: (num: number) => void;
     visibleThreadId: number;
+    refetchComments(): void;
 }
 
-const Comment: React.FC<CommentProps> = ({comment, showReplies, toggleReplies, visibleThreadId}) => {
+const Comment: React.FC<CommentProps> = ({comment, showReplies, toggleReplies, visibleThreadId, refetchComments}) => {
 
     const [deleteComment] = useDeleteCommentMutation()
+    const [updateComment] = useUpdateCommentMutation()
     const [editing, setEditing] = useState<boolean>(false)
+    const [editComment, setEditComment] = useState<string>(comment.text);
+
+    const onKeyDown = async (e: any) => {
+        if(e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+
+            let submissionObj = {
+                threadId: comment.threadId,
+                text: editComment,
+                author: comment.author,
+                authorId: comment.authorId,
+                taskId: comment.taskId,
+                id: comment.id
+            }
+            try {
+                const response = await updateComment(submissionObj).unwrap()
+
+                setEditComment('')
+                setEditing(false)
+                refetchComments()
+            } catch(error) {
+                console.error("Failed to update the comment:", error);
+            }
+        }
+    }
+
+    const handleDeleteComment = async () => {
+        try {
+            const response = await deleteComment(comment.id).unwrap()
+            refetchComments()
+        } catch (error) {
+            console.error("Failed to update the comment:", error);
+        }
+    }
 
     if(!showReplies && comment.threadId) {
         return null
@@ -26,7 +62,12 @@ const Comment: React.FC<CommentProps> = ({comment, showReplies, toggleReplies, v
                 <p>{moment(comment.date).format('MMMM Do YYYY, h:mm a')}</p>
             </div>
             {editing ?
-                <textarea className="p-4 bg-gray-800 h-[100px] w-full border-blue-400 border-2 rounded" value={comment.text}/>
+                <textarea
+                    className="p-4 bg-gray-800 h-[100px] w-full border-blue-400 border-2 rounded"
+                    value={editComment}
+                    onKeyDown={(e) => onKeyDown(e)}
+                    onChange={(e) => setEditComment(e.target.value)}
+                />
                 :
                 <p className="py-8">{comment.text}</p>
             }
@@ -44,7 +85,7 @@ const Comment: React.FC<CommentProps> = ({comment, showReplies, toggleReplies, v
                         </button>
                     </>
                 }
-                <button className="comment-btn-crud" type="button" onClick={() => deleteComment(comment.id)}>Delete
+                <button className="comment-btn-crud" type="button" onClick={() => handleDeleteComment()}>Delete
                 </button>
             </div>
         </div>

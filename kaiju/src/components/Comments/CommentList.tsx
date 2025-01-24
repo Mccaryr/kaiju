@@ -2,25 +2,37 @@ import Comment from "./Comment.tsx";
 import '../../styles/components/Comment.scss'
 import {useCreateCommentMutation, useGetCommentsQuery} from "../../features/apiSlice.ts";
 import {useState} from "react";
+import {useSelector} from "react-redux";
+import {RootState} from "../../app/store.ts";
 
 const CommentList = ({taskId}: {taskId: string}) => {
     const [createComment] = useCreateCommentMutation();
-    const [comment, setComment] = useState<String>('');
-    const {data: commentData} = useGetCommentsQuery(taskId)
+    const [comment, setComment] = useState<string>("");
+    const {data: commentData, refetch: refetchComments} = useGetCommentsQuery(taskId, {
+        refetchOnMountOrArgChange: true,
+    })
     // We show replies only of parent threadId
     const [visibleThreadId, setShowVisibleThreadId] = useState<number>(0)
+    const user = useSelector((state: RootState) => state.auth.user)
 
     const onKeyDown = (e: any) => {
-        if(e.key === 'Enter' && e.key !== 'shiftKey') {
-            console.log("Enter was pressed!")
+        if(e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
-            createComment(comment)
+
+            let submissionObj = {
+                threadId: null,
+                text: comment,
+                author: user.username,
+                authorId: user.userId,
+                taskId: taskId,
+            }
+            createComment(submissionObj)
             setComment('')
+            refetchComments()
         }
     }
 
     const toggleReplies = (num: number) => {
-        console.log("toggleReplies", num, "visibleThreadId", visibleThreadId)
         if(visibleThreadId === num) {
             setShowVisibleThreadId(0)
         } else {
@@ -35,10 +47,9 @@ const CommentList = ({taskId}: {taskId: string}) => {
                     className="p-4 bg-gray-800 h-[100px]"
                     placeholder="Write a comment and press ENTER to submit"
                     onKeyDown={(e) => onKeyDown(e)}
-                    onChange={(e) => {
-                      console.log(e)
-                      setComment(e.target.value);
-                    }}/>
+                    onChange={(e) => setComment(e.target.value)}
+                    value={comment}
+                />
             </div>
             {commentData && commentData.map((commentObj: any) => {
                 return <Comment
@@ -47,6 +58,7 @@ const CommentList = ({taskId}: {taskId: string}) => {
                     showReplies={visibleThreadId === commentObj.threadId}
                     toggleReplies={toggleReplies}
                     visibleThreadId={visibleThreadId}
+                    refetchComments={refetchComments}
                 />
             })}
         </div>

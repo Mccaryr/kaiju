@@ -36,7 +36,7 @@ const LoginForm = ({setCreatingAccount}: {setCreatingAccount: (creatingAccount: 
         try {
           const result = await login(values)
             if (result.data?.jwt) {
-                dispatch(setIsLoggedIn(result.data.jwt))
+                dispatch(setIsLoggedIn(result.data))
             }
             if(result.error) {
                 setError("Invalid username/password")

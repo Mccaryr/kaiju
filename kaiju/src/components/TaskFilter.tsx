@@ -41,7 +41,7 @@ const TaskFilter = () => {
     return (
         <div className='mb-2 p-8 flex gap-5 align-items-center flex-col sm:flex-row'>
             <SearchBar />
-            <div className='flex flex-row gap-4 sm:pt-0 align-items-center pt-4'>
+            <div className='flex flex-row gap-4 sm:pt-0 align-items-center pt-4 z-0'>
                 <CustomSelect value={type} options={typeOptions} label={'Type'} onChange={handleTypeChange} />
                 <CustomSelect value={assignee} options={assigneeOptions} label={'Assignee'} onChange={handleAssigneeChange} />
             </div>
