@@ -15,7 +15,6 @@ export const authSlice = createSlice({
     reducers: {
         setIsLoggedIn: (state, action: PayloadAction<any>) => {
             if(action.payload) {
-                console.log("action.payload", action.payload)
                 const {user, jwt} = action.payload
                 localStorage.setItem("token", jwt);
                 state.user = {username: user.username, userId: user.userId, firstName: user.firstName, lastName: user.lastName}
