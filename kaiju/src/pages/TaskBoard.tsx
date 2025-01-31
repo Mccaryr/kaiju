@@ -63,7 +63,7 @@ const TaskBoard = () => {
                             <div className='dropdown-content sm:mr-12 mr-4'>
                                 <a href="#" onClick={() => dispatch(openModal({modalType: "CREATE_TASK", modalProps: {projectId: selectedProject?.value} }))}>Create
                                     Task</a>
-                                <a href="#" onClick={() => dispatch(openModal({modalType: "CONFIRM", modalProps: {}}))}>Complete Sprint</a>
+                                <a href="#" onClick={() => dispatch(openModal({modalType: "SPRINT", modalProps: {}}))}>Complete Sprint</a>
                                 <a href="/" onClick={() => dispatch(logout())}>Logout</a>
                             </div>
                         )}

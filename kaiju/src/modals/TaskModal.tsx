@@ -153,17 +153,17 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
                     <div className='grid grid-cols-2 items-center sm:w-3/4 w-full justify-evenly px-4 sm:py-2 gap-8'>
                         <div>
                             <CustomSelect label={'Type'} options={typeOptions}
-                                          onChange={(option) => setFieldValue("type", option)} value={values.type}/>
+                                          onChange={(option: any) => setFieldValue("type", option)} value={values.type}/>
                             <ErrorMessage name="type" component="div" className="text-red-500"/>
                         </div>
                         <div className='flex justify-end'>
                             <CustomSelect label={'Status'} options={statusOptions}
-                                          onChange={(option) => setFieldValue("status", option)} value={values.status}/>
+                                          onChange={(option: any) => setFieldValue("status", option)} value={values.status}/>
                             <ErrorMessage name="type" component="div" className="text-red-500"/>
                         </div>
                         <div>
                             <CustomSelect label={'Assigned To'} options={assigneeOptions}
-                                          onChange={(option) => setFieldValue("assignee", option)}
+                                          onChange={(option: any) => setFieldValue("assignee", option)}
                                           value={values.assignee}/>
                             <ErrorMessage name="assignee" component="div" className="text-red-500"/>
                         </div>

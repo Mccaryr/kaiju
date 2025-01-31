@@ -4,6 +4,7 @@ import {RootState} from '../app/store.ts';
 import {closeModal} from "../features/modalSlice.ts";
 import {useDispatch} from "react-redux";
 import '../styles/components/Modal.scss'
+import SprintModal from "./SprintModal.tsx";
 
 const Modal = ({ refetch }: { refetch: () => void }) => {
     const {isVisible, modalType, modalProps} = useSelector((state: RootState) => state.modal)
@@ -12,7 +13,7 @@ const Modal = ({ refetch }: { refetch: () => void }) => {
     if (!isVisible) { return null}
 
     return (
-        <div className='sm:h-[100vh] sm:w-[100vw] z-20 overflow-y-auto modal'>
+        <div className='h-[100vh] w-[100vw] z-20 overflow-y-auto modal'>
             <div className='top-0 right-0 relative'>
                 <button
                     onClick={() => {
@@ -23,7 +24,13 @@ const Modal = ({ refetch }: { refetch: () => void }) => {
                 >X
                 </button>
             </div>
+            {modalType == "CREATE_TASK" || modalType == "UPDATE_TASK" &&
                 <TaskModal modalType={modalType} modalProps={modalProps} refetch={refetch}/>
+            }
+
+            {modalType === "SPRINT" &&
+                <SprintModal />
+            }
         </div>
     )
 }

@@ -86,6 +86,20 @@ export const apiSlice = createApi({
                 url: `comments/${commentId}`,
                 method: 'DELETE'
             })
+        }),
+        createSprint: builder.mutation({
+            query: (sprint) => ({
+                url: `sprint`,
+                method: 'POST',
+                body: sprint
+            })
+        }),
+        updateSprint: builder.mutation({
+            query: (sprint) => ({
+                url: `sprint/${sprint.id}`,
+                method: 'PUT',
+                body: sprint
+            })
         })
     }),
 });
@@ -101,5 +115,7 @@ export const {
     useGetCommentsQuery,
     useCreateCommentMutation,
     useUpdateCommentMutation,
-    useDeleteCommentMutation
+    useDeleteCommentMutation,
+    useCreateSprintMutation,
+    useUpdateSprintMutation,
 } = apiSlice;
