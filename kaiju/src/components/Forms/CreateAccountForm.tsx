@@ -1,11 +1,11 @@
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from "yup";
-import '../styles/components/LoginForm.scss'
-import Button from "./Button.tsx";
-import {useAuth} from "./AuthProvider.tsx";
+import '../../styles/components/LoginForm.scss'
+import Button from "../Button.tsx";
+import {useAuth} from "../AuthProvider.tsx";
 
 
-const CreateAccount = ({setCreatingAccount}: {setCreatingAccount: (creatingAccount: boolean) => void}) => {
+const CreateAccountForm = ({setCreatingAccount}: {setCreatingAccount: (creatingAccount: boolean) => void}) => {
     const {createAccount} = useAuth()
 
     const validationSchema = Yup.object({
@@ -59,4 +59,4 @@ const CreateAccount = ({setCreatingAccount}: {setCreatingAccount: (creatingAccou
 
     )
 }
-export default CreateAccount
+export default CreateAccountForm

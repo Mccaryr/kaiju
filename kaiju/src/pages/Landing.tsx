@@ -1,6 +1,6 @@
 import Header from "../components/Header.tsx";
-import LoginForm from "../components/LoginForm.tsx";
-import CreateAccount from "../components/CreateAccount.tsx";
+import LoginForm from "../components/Forms/LoginForm.tsx";
+import CreateAccountForm from "../components/Forms/CreateAccountForm.tsx";
 import React from "react";
 import video from "../assets/landing-video.mp4"
 
@@ -11,7 +11,7 @@ const Landing = () => {
             <Header />
             <div className="relative w-full h-[85vh] overflow-hidden">
                 {creatingAccount ?
-                    <CreateAccount setCreatingAccount={setCreatingAccount}/>
+                    <CreateAccountForm setCreatingAccount={setCreatingAccount}/>
                     :
                     <LoginForm setCreatingAccount={setCreatingAccount}/>
                 }

@@ -6,7 +6,7 @@ import '../styles/components/CustomSelect.scss'
 type CustomSelectProps = {
     label: string,
     options: Option[] | undefined,
-    onChange:React.Dispatch<React.SetStateAction<{ value: string; label: string } | null>>
+    onChange: any
     value: {label: string, value: string} | null
 }
 

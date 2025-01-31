@@ -25,7 +25,6 @@ const Comment: React.FC<CommentProps> = ({comment, showReplies, toggleReplies, v
     const [isReplying, setIsReplying] = useState<boolean>(false)
     const [replyComment, setReplyComment] = useState<string>("");
     const user = useSelector((state: RootState) => state.auth.user)
-    const replyRef = useRef<HTMLTextAreaElement | null>(null);
 
     const onKeyDown = async (e: any, type: string) => {
         if(e.key === 'Enter' && !e.shiftKey) {

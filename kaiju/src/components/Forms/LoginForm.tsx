@@ -1,13 +1,13 @@
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from 'yup';
-import '../styles/components/LoginForm.scss'
-import Button from "./Button.tsx";
+import '../../styles/components/LoginForm.scss'
+import Button from "../Button.tsx";
 import {useState} from "react";
-import Loader from "./Loader.tsx";
-import {useLoginMutation} from "../features/apiSlice.ts";
+import Loader from "../Loader.tsx";
+import {useLoginMutation} from "../../features/apiSlice.ts";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../app/store.ts";
-import {setIsLoggedIn} from "../features/authSlice.ts";
+import {RootState} from "../../app/store.ts";
+import {setIsLoggedIn} from "../../features/authSlice.ts";
 
 type LoginFormValues = {
     email: string;

@@ -1,7 +1,7 @@
-import {TaskType} from "../types/task.ts";
+import {TaskType} from "../../types/task.ts";
 import React from "react";
-import '../styles/components/Task.scss'
-import {openModal} from "../features/modalSlice.ts";
+import '../../styles/components/Task.scss'
+import {openModal} from "../../features/modalSlice.ts";
 
 type TaskProps = {
     task: TaskType;

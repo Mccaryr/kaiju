@@ -1,11 +1,11 @@
-import Task from "./Task";
-import {TaskType} from "../types/task.ts";
-import '../styles/components/TaskList.scss';
+import Task from "./Task.tsx";
+import {TaskType} from "../../types/task.ts";
+import '../../styles/components/TaskList.scss';
 // @ts-ignore
 import { DragDropContext, Droppable, Draggable, DroppableProvided, DraggableProvided } from 'react-beautiful-dnd';
-import {openModal} from "../features/modalSlice.ts";
+import {openModal} from "../../features/modalSlice.ts";
 import {useDispatch} from "react-redux";
-import {useUpdateTaskMutation} from "../features/apiSlice.ts";
+import {useUpdateTaskMutation} from "../../features/apiSlice.ts";
 import {useEffect, useState} from "react";
 
 type TaskBucket = {
