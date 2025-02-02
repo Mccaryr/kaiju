@@ -1,6 +1,6 @@
 import {Field} from "formik";
 import React, {useState} from "react";
-import '.././styles/components/CustomInput.scss'
+import '../../styles/components/CustomInput.scss'
 
 type CustomInputProps = {
     label: string;

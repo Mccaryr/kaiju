@@ -1,9 +1,9 @@
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from 'yup';
 import '../../styles/components/LoginForm.scss'
-import Button from "../Button.tsx";
+import Button from "../Common/Button.tsx";
 import {useState} from "react";
-import Loader from "../Loader.tsx";
+import Loader from "../Common/Loader.tsx";
 import {useLoginMutation} from "../../features/apiSlice.ts";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../app/store.ts";

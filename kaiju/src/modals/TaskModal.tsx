@@ -8,15 +8,15 @@ import {useDispatch} from "react-redux";
 import TextEditor from "../components/TextEditor.tsx";
 import '../styles/components/Button.scss'
 import '../styles/components/Modal.scss'
-import CustomSelect from "../components/CustomSelect.tsx";
-import CustomInput from "../components/CustomInput.tsx";
+import CustomSelect from "../components/Common/CustomSelect.tsx";
+import CustomInput from "../components/Common/CustomInput.tsx";
 import {useRef, useState} from "react";
 import CommentList from "../components/Comments/CommentList.tsx";
 
 interface TaskModalProps {
     modalType?: string,
     modalProps: any,
-    refetch: () => void,
+    refetchTasks: () => void,
 }
 
 type TaskFormValues = {
@@ -31,7 +31,7 @@ type TaskFormValues = {
 
 
 
-const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) => {
+const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetchTasks}) => {
     const [createTask] = useCreateTaskMutation()
     const [updateTask] = useUpdateTaskMutation();
     const [deleteTask] = useDeleteTaskMutation();
@@ -91,7 +91,7 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
         if(modalType === "CREATE_TASK") {
             await createTask(submissionObj).unwrap()
                 .then(() => {
-                    refetch()
+                    refetchTasks()
                     dispatch(closeModal());
                 })
                 .catch((error: Error) => console.log(error))
@@ -100,7 +100,7 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
         if(modalType === "UPDATE_TASK") {
             await updateTask(submissionObj).unwrap()
             .then(() => {
-                refetch()
+                refetchTasks()
                 dispatch(closeModal());
             })
                 .catch((error: Error) => setError(error))
@@ -110,7 +110,7 @@ const TaskModal: React.FC<TaskModalProps> = ({modalType, modalProps, refetch}) =
     const handleDeleteTask = async () => {
         await deleteTask(modalProps.id).unwrap()
             .then(() => {
-                refetch()
+                refetchTasks()
                 dispatch(closeModal());
             })
             .catch((error: Error) => console.log(error))

@@ -1,7 +1,7 @@
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from "yup";
 import '../../styles/components/LoginForm.scss'
-import Button from "../Button.tsx";
+import Button from "../Common/Button.tsx";
 import {useAuth} from "../AuthProvider.tsx";
 
 

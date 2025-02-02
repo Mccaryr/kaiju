@@ -3,7 +3,7 @@ import {Option} from "../types/option.ts";
 import {useState} from "react";
 import {useDispatch} from "react-redux";
 import {setFilter} from "../features/filterSlice.ts"
-import CustomSelect from "./CustomSelect.tsx";
+import CustomSelect from "./Common/CustomSelect.tsx";
 
 
 const TaskFilter = () => {

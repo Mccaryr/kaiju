@@ -3,7 +3,7 @@ import {createSlice} from "@reduxjs/toolkit";
 const initialState = {
     searchTerm: "",
     taskType: "",
-    assignee: ""
+    assignee: "",
 }
 export const filterSlice = createSlice({
     name: 'filter',
@@ -14,6 +14,7 @@ export const filterSlice = createSlice({
             if(searchTerm) state.searchTerm = searchTerm;
             if(taskType) state.taskType = taskType;
             if(assignee) state.assignee = assignee
+
         }
     }
 })

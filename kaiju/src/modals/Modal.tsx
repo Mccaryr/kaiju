@@ -6,14 +6,14 @@ import {useDispatch} from "react-redux";
 import '../styles/components/Modal.scss'
 import SprintModal from "./SprintModal.tsx";
 
-const Modal = ({ refetch }: { refetch: () => void }) => {
+const Modal = ({ refetchTasks }: { refetchTasks: () => void }) => {
     const {isVisible, modalType, modalProps} = useSelector((state: RootState) => state.modal)
     const dispatch = useDispatch();
 
     if (!isVisible) { return null}
 
     return (
-        <div className='h-[100vh] w-[100vw] z-20 overflow-y-auto modal'>
+        <div className={`${modalProps.size === "Medium" ? "sm:h-3/4 sm:w-1/2 sm:rounded-3xl w-full": "h-[100vh] w-[100vw]"} z-20 overflow-y-auto modal`}>
             <div className='top-0 right-0 relative'>
                 <button
                     onClick={() => {
@@ -24,12 +24,12 @@ const Modal = ({ refetch }: { refetch: () => void }) => {
                 >X
                 </button>
             </div>
-            {modalType == "CREATE_TASK" || modalType == "UPDATE_TASK" &&
-                <TaskModal modalType={modalType} modalProps={modalProps} refetch={refetch}/>
+            {(modalType === "CREATE_TASK" || modalType === "UPDATE_TASK") &&
+                <TaskModal modalType={modalType} modalProps={modalProps} refetchTasks={refetchTasks}/>
             }
 
             {modalType === "SPRINT" &&
-                <SprintModal />
+                <SprintModal modalProps={modalProps} refetchTasks={refetchTasks} />
             }
         </div>
     )

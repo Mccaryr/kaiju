@@ -1,4 +1,4 @@
-import godzillaLoader from '../assets/godzillaLoader.gif'
+import godzillaLoader from '../../assets/godzillaLoader.gif'
 
 const Loader = () => {
     return (

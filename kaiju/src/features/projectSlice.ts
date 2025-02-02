@@ -4,7 +4,7 @@ import {apiSlice} from "./apiSlice.ts";
 
 type ProjectState = {
     data: Project[]
-    selectedProject: {label: string, value: string} | null
+    selectedProject: {name: string, id: number, sprintId: number} | null
 }
 
 const initialState: ProjectState = {

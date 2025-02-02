@@ -4,13 +4,13 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 export interface ModalState {
     isVisible: boolean,
     modalType: string,
-    modalProps: {}
+    modalProps: {size?: string, projectId: number | null}
 }
 
 const initialState: ModalState = {
     isVisible: false,
     modalType: "",
-    modalProps: {}
+    modalProps: {projectId:null}
 }
 
 export const modalSlice = createSlice({
@@ -25,7 +25,7 @@ export const modalSlice = createSlice({
         closeModal: (state) => {
             state.isVisible = false;
             state.modalType = "";
-            state.modalProps = {}
+            state.modalProps = {projectId: null}
         }
     },
 })

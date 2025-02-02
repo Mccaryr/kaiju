@@ -29,12 +29,13 @@ export const apiSlice = createApi({
             }
         }),
         getTasks: builder.query({
-            query: ({searchTerm = '', taskType = '', projectId = '', assignee = ''}) => {
+            query: ({searchTerm = '', taskType = '', projectId = '', assignee = '', sprintId = ''}) => {
                 const params = new URLSearchParams();
                 if (searchTerm) params.append('searchTerm', searchTerm);
                 if (taskType && taskType !== "All") params.append('type', taskType);
                 if(projectId) params.append('projectId', projectId)
                 if(assignee && assignee !== "All") params.append('assignee', assignee)
+                if(sprintId) params.append('sprintId', sprintId)
 
                 return `tasks?${params.toString()}`;
             },
@@ -108,7 +109,9 @@ export const apiSlice = createApi({
 export const {
     useLoginMutation,
     useGetProjectsQuery,
+    useLazyGetProjectsQuery,
     useGetTasksQuery,
+    useLazyGetTasksQuery,
     useUpdateTaskMutation,
     useCreateTaskMutation,
     useDeleteTaskMutation,

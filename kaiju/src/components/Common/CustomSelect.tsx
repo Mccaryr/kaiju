@@ -1,7 +1,7 @@
 import Select from "react-select";
 import React, {useState} from "react";
-import {Option} from "../types/option.ts";
-import '../styles/components/CustomSelect.scss'
+import {Option} from "../../types/option.ts";
+import '../../styles/components/CustomSelect.scss'
 
 type CustomSelectProps = {
     label: string,

@@ -1,6 +1,6 @@
 import React from "react";
-import '../styles/components/Button.scss'
-import godzillaLoader from "../assets/godzillaLoader.gif";
+import '../../styles/components/Button.scss'
+import godzillaLoader from "../../assets/godzillaLoader.gif";
 
 
 interface ButtonProps {

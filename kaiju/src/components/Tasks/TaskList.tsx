@@ -71,6 +71,9 @@ const TaskList: React.FC<TasksDataProps> = ({tasksData, refetchTasks}) => {
         // If dropped outside any droppable area
         if (!destination) return;
 
+        //If dropped in the same bucket, stops duplication
+        if(source.droppableId === destination.droppableId) return;
+
         const sourceBucket = source.droppableId;
         const destBucket = destination.droppableId;
 
